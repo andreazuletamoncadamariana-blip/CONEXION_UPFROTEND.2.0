@@ -1,0 +1,95 @@
+<div class="impact-wrapper">
+  <!-- HERO SECTION -->
+  <section class="impact-hero">
+    <div class="hero-content">
+      <span class="eyebrow">Indicadores institucionales</span>
+      <h1>Impacto social en cifras</h1>
+      <p>Visualización clara del alcance y desempeño del proyecto Uniremington Al Parque.</p>
+    </div>
+
+    <div class="hero-metrics">
+      <div class="metric-highlight">
+        <strong class="metric-value">{{ totalBeneficiarios | number }}</strong>
+        <span class="metric-label">Beneficiarios</span>
+      </div>
+      <div class="metric-highlight teal">
+        <strong class="metric-value">{{ promedioAvance }}%</strong>
+        <span class="metric-label">Cumplimiento</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- STAT CARDS -->
+  <section class="stat-cards-grid">
+    <article class="stat-card" *ngFor="let indicador of indicadores; let i = index" [style.--delay]="i + 'ms'">
+      <div class="card-icon" [style.background]="indicador.color">
+        <i class="fa-solid" [ngClass]="indicador.icono"></i>
+      </div>
+      <div class="card-content">
+        <span class="card-label">{{ indicador.nombre }}</span>
+        <strong class="card-number">{{ indicador.valor | number }}</strong>
+        <small class="card-meta">de {{ indicador.meta | number }} {{ indicador.unidad }}</small>
+      </div>
+      <div class="card-progress">
+        <div class="progress-bar">
+          <div
+            class="progress-fill"
+            [style.width.%]="porcentaje(indicador)"
+            [style.background]="indicador.color"
+          ></div>
+        </div>
+        <span class="progress-text">{{ porcentaje(indicador) }}%</span>
+      </div>
+    </article>
+  </section>
+
+  <!-- MAP SECTION -->
+  <section class="map-section">
+    <div class="section-header">
+      <h2>Cobertura geográfica</h2>
+      <p>Municipios alcanzados por el programa de impacto social</p>
+    </div>
+    <div id="impact-map" class="impact-map"></div>
+  </section>
+
+  <!-- ANALYTICS LAYOUT -->
+  <div class="analytics-grid">
+    <!-- CHARTS CARD -->
+    <section class="analytics-card charts-card">
+      <h2>Avance por facultad</h2>
+      <p class="card-subtitle">Porcentaje de cumplimiento frente a metas de atención</p>
+      <div class="bar-charts">
+        <div class="bar-item" *ngFor="let area of areas">
+          <div class="bar-label-group">
+            <span class="bar-name">{{ area.nombre }}</span>
+            <strong class="bar-percentage">{{ area.valor }}%</strong>
+          </div>
+          <div class="bar-track">
+            <div
+              class="bar-fill"
+              [style.width.%]="area.valor"
+              [style.background]="area.color"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SUMMARY CARD -->
+    <section class="analytics-card summary-card">
+      <h2>Lectura rápida</h2>
+      <div class="summary-content">
+        <p class="summary-text">
+          El proyecto registra <strong>{{ totalBeneficiarios | number }}</strong>
+          personas beneficiadas y mantiene un avance promedio del
+          <strong>{{ promedioAvance }}%</strong> frente a las metas actuales.
+        </p>
+        <ul class="summary-insights">
+          <li><i class="fas fa-check-circle"></i> <span>Veterinaria lidera con 91% de cumplimiento.</span></li>
+          <li><i class="fas fa-triangle-exclamation"></i> <span>Empresarial requiere refuerzo (61%).</span></li>
+          <li><i class="fas fa-chart-line"></i> <span>Cobertura en 14 municipios del área.</span></li>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>

@@ -1,0 +1,174 @@
+<header class="navbar-premium" *ngIf="showPublicLayout()" role="banner">
+  <div class="nav-content">
+    <a routerLink="/" class="logo-container" aria-label="Ir al inicio">
+      <img src="assets/images/logouni.png" alt="Logo Uniremington" class="brand-logo" loading="lazy" />
+    </a>
+
+    <nav class="nav-main" role="navigation" aria-label="Menú principal">
+      <button class="menu-toggle" aria-controls="primary-navigation" aria-expanded="false" (click)="toggleMobileMenu($event)">
+        <span class="sr-only">Abrir menú</span>
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <ul id="primary-navigation" class="nav-links" [class.open]="mobileMenuOpen">
+        <li><a routerLink="/home" routerLinkActive="active-pill" [routerLinkActiveOptions]="{ exact: true }"><i class="fa-solid fa-house-chimney"></i> Inicio</a></li>
+        <li><a routerLink="/impacto" routerLinkActive="active-pill"><i class="fa-solid fa-earth-americas"></i> Impacto</a></li>
+        <li><a routerLink="/blog" routerLinkActive="active-pill"><i class="fa-solid fa-newspaper"></i> Blog</a></li>
+        <li><a routerLink="/contacto" routerLinkActive="active-pill"><i class="fa-solid fa-envelope-open-text"></i> Contacto</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        <a routerLink="/solicitar-jornada" class="btn-solicitar" title="Solicitar Jornada">Solicitar Jornada <i class="fa-solid fa-rocket"></i></a>
+        <button type="button" class="btn-donar" (click)="toggleDonacion()" aria-label="Donar">Donar <i class="fa-solid fa-heart"></i></button>
+        <a routerLink="/remi-game" class="btn-game" title="Remi Space">Remi Space <i class="fa-solid fa-gamepad"></i></a>
+        <a routerLink="/login" class="btn-access" title="Acceder">Acceder</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<div class="nav-spacer" *ngIf="showPublicLayout()"></div>
+
+<main class="main-container">
+  <router-outlet></router-outlet>
+</main>
+
+<div class="remi-container" *ngIf="isHomePage()">
+  <div class="remi-welcome-bubble shadow-premium" *ngIf="showWelcome">
+    <div class="bubble-header">
+      <strong>Remi AI</strong>
+    </div>
+    <p>Hola, soy Remi. Te guio paso a paso para encontrar lo que necesitas.</p>
+  </div>
+
+  <div class="remi-robot-3d" (click)="toggleChat()">
+    <div class="robot-glow"></div>
+    <div class="robot-head">
+      <div class="eyes">
+        <span class="eye-blink"></span>
+        <span class="eye-blink"></span>
+      </div>
+      <div class="antenna">
+        <div class="dot pulse-red"></div>
+      </div>
+    </div>
+    <div class="robot-body">
+      <div class="energy-core"></div>
+    </div>
+  </div>
+
+  <div class="remi-chat-box shadow-premium" [class.active]="isChatOpen">
+    <div class="chat-header-premium">
+      <div class="header-info">
+        <i class="fa-solid fa-robot"></i>
+        <div>
+          <strong>Remi Asistente</strong>
+          <small>En linea</small>
+        </div>
+      </div>
+      <button type="button" class="close-chat" (click)="toggleChat()">&times;</button>
+    </div>
+
+    <div class="chat-body-modern">
+      <div class="remi-response-card">
+        <span class="response-label">Asistente Remi</span>
+        <h3>{{ remiResponse.title }}</h3>
+        <p>{{ remiResponse.message }}</p>
+        <ol>
+          <li *ngFor="let step of remiResponse.steps">{{ step }}</li>
+        </ol>
+      </div>
+
+      <button type="button" class="remi-option-btn gradient-human" (click)="handleRemiAction('home')">
+        <div class="icon-circle">
+          <i class="fa-solid fa-house-chimney"></i>
+        </div>
+        <span>Vista principal</span>
+      </button>
+
+      <button type="button" class="remi-option-btn gradient-jornada" (click)="handleRemiAction('jornada')">
+        <div class="icon-circle">
+          <i class="fa-solid fa-rocket"></i>
+        </div>
+        <span>Solicitar Jornada</span>
+      </button>
+
+      <button type="button" class="remi-option-btn gradient-donacion" (click)="handleRemiAction('donacion')">
+        <div class="icon-circle">
+          <i class="fa-solid fa-heart"></i>
+        </div>
+        <span>Realizar Donacion</span>
+      </button>
+
+      <button type="button" class="remi-option-btn gradient-game" (click)="handleRemiAction('game')">
+        <div class="icon-circle">
+          <i class="fa-solid fa-gamepad"></i>
+        </div>
+        <span>Minijuego Remi Space</span>
+      </button>
+
+      <button type="button" class="remi-option-btn gradient-human" (click)="handleRemiAction('soporte')">
+        <div class="icon-circle">
+          <i class="fa-solid fa-headset"></i>
+        </div>
+        <span>Soporte Directo</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<div class="donacion-modal-overlay" *ngIf="showDonacion" (click)="toggleDonacion()">
+  <div class="donacion-modal-content" (click)="$event.stopPropagation()">
+    <button type="button" class="close-donacion" (click)="toggleDonacion()">
+      <i class="fa-solid fa-times"></i>
+    </button>
+    <app-donacion></app-donacion>
+  </div>
+</div>
+
+<footer class="footer-site" *ngIf="showPublicLayout()" role="contentinfo">
+  <div class="container footer-grid">
+    <div class="col about">
+      <img src="assets/images/logouni.png" alt="Uniremington" class="footer-logo" loading="lazy" />
+      <p class="brand-description">Proyección Social Uniremington — educación y servicio público unidos para generar impacto territorial desde 1915.</p>
+    </div>
+
+    <div class="col links">
+      <h4>Enlaces</h4>
+      <ul>
+        <li><a routerLink="/home">Inicio</a></li>
+        <li><a routerLink="/impacto">Impacto</a></li>
+        <li><a routerLink="/blog">Blog</a></li>
+        <li><a routerLink="/contacto">Contacto</a></li>
+      </ul>
+    </div>
+
+    <div class="col contact">
+      <h4>Contacto</h4>
+      <p><strong>Tel:</strong> (604) 322 1000</p>
+      <p><strong>Email:</strong> <a href="mailto:social@uniremington.edu.co">social&#64;uniremington.edu.co</a></p>
+      <p><strong>Oficina:</strong> Medellín, Colombia</p>
+    </div>
+
+    <div class="col social">
+      <h4>Síguenos</h4>
+      <div class="social-links">
+        <a href="https://www.facebook.com/UniremingtonOficial/?locale=es_LA" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-facebook-f"></i></a>
+        <a href="https://www.instagram.com/uniremingtonoficial/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-instagram"></i></a>
+        <a routerLink="/remi-game" title="Remi Space"><i class="fa-solid fa-rocket"></i></a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>© 2026 Corporación Universitaria Remington — Proyección Social. Todos los derechos reservados.</p>
+      <nav aria-label="Políticas">
+        <a href="/aviso-privacidad">Política de privacidad</a>
+        <span>·</span>
+        <a href="/terminos">Términos</a>
+      </nav>
+    </div>
+  </div>
+</footer>

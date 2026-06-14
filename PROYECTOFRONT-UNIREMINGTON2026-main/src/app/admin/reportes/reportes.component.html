@@ -1,0 +1,81 @@
+<div class="form-wrapper reports-wrapper">
+  <div class="header-panel">
+    <div>
+      <span class="eyebrow">Gestión de reportes</span>
+      <h2>Centro de reportes y estadísticas</h2>
+      <p>Genera documentos oficiales del impacto social por periodo, facultad y servicio prestado.</p>
+    </div>
+  </div>
+
+  <div class="card form-card">
+    <div class="form-card-header">
+      <span class="eyebrow">Filtros de búsqueda</span>
+      <h3>Configuración del reporte</h3>
+    </div>
+
+    <div class="grid-form">
+      <div class="form-group">
+        <label for="servicio">Tipo de servicio</label>
+        <select id="servicio" [(ngModel)]="filtro.servicio" class="select-field">
+          <option value="todos">Todos los servicios</option>
+          <option value="salud">Salud</option>
+          <option value="juridica">Brigada Jurídica</option>
+          <option value="animal">Bienestar Animal</option>
+          <option value="empresarial">Asesoría Empresarial</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="inicio">Fecha de inicio</label>
+        <input id="inicio" type="date" [(ngModel)]="filtro.inicio" class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="fin">Fecha de fin</label>
+        <input id="fin" type="date" [(ngModel)]="filtro.fin" class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label>Formato de salida</label>
+        <div class="format-options">
+          <button [class.active]="formato === 'pdf'" (click)="formato = 'pdf'" class="btn-format">PDF</button>
+          <button [class.active]="formato === 'excel'" (click)="formato = 'excel'" class="btn-format">Excel</button>
+        </div>
+      </div>
+
+      <div class="actions" style="grid-column: span 2;">
+        <button class="btn btn-primary" (click)="generarReporte()">
+          <i class="fas fa-download"></i> Procesar y descargar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="card form-card" style="margin-top: 28px;">
+    <div class="form-card-header">
+      <span class="eyebrow">Historial</span>
+      <h3>Últimos reportes generados</h3>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Nombre del archivo</th>
+          <th>Fecha de generación</th>
+          <th>Usuario</th>
+          <th>Estado</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Impacto_Social_Mayo_2026.pdf</td>
+          <td>01/05/2026</td>
+          <td>Admin_Principal</td>
+          <td><span class="status-ready">Listo</span></td>
+          <td><button class="btn-icon-action" title="Descargar"><i class="fas fa-download"></i></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

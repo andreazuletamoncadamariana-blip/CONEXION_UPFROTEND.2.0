@@ -1,0 +1,309 @@
+// Variables de diseño
+$primary-pink: #ec4899;        // Rosa vibrante para donación
+$primary-rose: #f43f5e;        // Rosa más profundo
+$secondary-blue: #004587;      // Azul institucional
+$accent-purple: #a855f7;       // Púrpura para acentos
+$success-green: #10b981;
+$glass-bg: rgba(255, 255, 255, 0.98);
+$shadow-soft: 0 20px 40px rgba(0, 0, 0, 0.08);
+$shadow-medium: 0 25px 50px rgba(0, 0, 0, 0.15);
+
+.donacion-container {
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: linear-gradient(135deg, #fce7f3 0%, #faf5ff 50%, #f0f9ff 100%);
+  min-height: auto;
+
+  // ===== BOTÓN FLOTANTE PRINCIPAL =====
+  .btn-donar {
+    background: linear-gradient(135deg, $primary-pink 0%, $primary-rose 100%);
+    color: white;
+    border: none;
+    padding: 16px 36px;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 15px 35px rgba(236, 72, 153, 0.35);
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+      transition: left 0.5s;
+    }
+
+    &:hover {
+      transform: translateY(-6px) scale(1.08);
+      box-shadow: 0 20px 45px rgba(236, 72, 153, 0.45);
+
+      &::before {
+        left: 100%;
+      }
+    }
+
+    &:active {
+      transform: translateY(-2px) scale(0.97);
+    }
+
+    i {
+      font-size: 1.4rem;
+      animation: heartBeat 1.5s infinite;
+    }
+  }
+
+  // ===== OVERLAY Y MODAL DEL FORMULARIO =====
+  .form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    animation: fadeInOverlay 0.3s ease-out;
+    backdrop-filter: blur(5px);
+  }
+
+  // ===== TARJETA DEL FORMULARIO =====
+  .form-card {
+    background: $glass-bg;
+    backdrop-filter: blur(15px);
+    width: 95%;
+    max-width: 480px;
+    border-radius: 28px;
+    padding: 45px;
+    box-shadow: $shadow-medium;
+    border: 2px solid rgba(236, 72, 153, 0.15);
+    animation: popIn 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+
+    // Fondo decorativo con gradiente
+    &::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    // ===== ENCABEZADO =====
+    h3 {
+      color: $secondary-blue;
+      font-size: 2rem;
+      margin-bottom: 8px;
+      font-weight: 800;
+      text-align: center;
+      background: linear-gradient(135deg, $primary-pink, $accent-purple);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    form {
+      position: relative;
+      z-index: 1;
+
+      input, select, textarea {
+        width: 100%;
+        padding: 14px 18px;
+        margin-bottom: 18px;
+        border: 2px solid #e5e7eb;
+        border-radius: 16px;
+        font-size: 1rem;
+        background: #fafbfc;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+        transition: all 0.3s ease;
+        color: #1e293b;
+
+        &::placeholder {
+          color: #94a3b8;
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $primary-pink;
+          background: white;
+          box-shadow: 0 0 0 5px rgba(236, 72, 153, 0.12);
+          transform: translateY(-2px);
+        }
+
+        &:hover:not(:focus) {
+          border-color: $primary-pink;
+          background: #f0f9ff;
+        }
+      }
+
+      textarea {
+        resize: none;
+        min-height: 110px;
+        border-radius: 16px;
+      }
+
+      select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ec4899' stroke-width='2'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right 12px center;
+        background-size: 20px;
+        padding-right: 40px;
+      }
+
+      // ===== BOTÓN CONFIRMAR =====
+      button[type="submit"] {
+        width: 100%;
+        padding: 16px;
+        margin-top: 10px;
+        background: linear-gradient(135deg, $primary-pink 0%, $primary-rose 100%);
+        color: white;
+        border: none;
+        border-radius: 16px;
+        font-size: 1.05rem;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 12px 30px rgba(236, 72, 153, 0.3);
+        position: relative;
+        overflow: hidden;
+
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          transform: translate(-50%, -50%);
+          transition: width 0.6s, height 0.6s;
+        }
+
+        &:hover {
+          transform: translateY(-4px);
+          box-shadow: 0 16px 40px rgba(236, 72, 153, 0.4);
+          filter: brightness(1.1);
+
+          &::before {
+            width: 300px;
+            height: 300px;
+          }
+        }
+
+        &:active {
+          transform: translateY(-1px);
+        }
+      }
+    }
+  }
+}
+
+// ===== ANIMACIONES ESPECIALES =====
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.85) translateY(20px);
+  }
+  50% {
+    transform: scale(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+@keyframes heartBeat {
+  0%, 100% { transform: scale(1); }
+  25% { transform: scale(1.2); }
+  50% { transform: scale(1); }
+  75% { transform: scale(1.2); }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// ===== RESPONSIVE DESIGN =====
+@media (max-width: 600px) {
+  .donacion-container {
+    padding: 20px 15px;
+
+    .btn-donar {
+      padding: 14px 28px;
+      font-size: 1rem;
+    }
+
+    .form-overlay {
+      align-items: flex-end;
+    }
+
+    .form-card {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 24px 24px 0 0;
+      padding: 30px 20px;
+      margin: 0;
+      animation: slideUp 0.4s ease-out;
+
+      h3 {
+        font-size: 1.6rem;
+      }
+
+      form input, select, textarea {
+        padding: 12px 14px;
+        font-size: 1rem;
+        margin-bottom: 14px;
+      }
+
+      button[type="submit"] {
+        padding: 14px;
+        font-size: 1rem;
+      }
+    }
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,151 @@
+<section class="impact-page-container">
+  <!-- Encabezado de la página -->
+  <div class="section-header-modern">
+    <span class="badge-premium">Resultados 2026</span>
+    <h2><i class="fa-solid fa-earth-americas"></i> Impacto en el Territorio</h2>
+    <div class="divider-gradient"></div>
+  </div>
+
+  <!-- Estadísticas Principales -->
+  <div class="impact-stats-grid">
+    <div class="stat-card" *ngFor="let stat of impactoStats">
+      <i [class]="'fa-solid ' + stat.icon + ' stat-icon'"></i>
+      <div class="stat-value">{{ stat.value }}+</div>
+      <div class="stat-label">{{ stat.label }}</div>
+    </div>
+  </div>
+
+  <!-- Sección de Gráficos -->
+  <div class="charts-section">
+    <div class="section-title">
+      <h3>Análisis Detallado de Impacto</h3>
+      <p>Visualiza el alcance de nuestras jornadas por facultad y servicio</p>
+    </div>
+
+    <!-- Fila 1: Gráfico de Barras (Impacto por Facultad) -->
+    <div class="chart-container large">
+      <div class="chart-card">
+        <div class="chart-header">
+          <h4><i class="fa-solid fa-chart-column"></i> Impacto por Facultad</h4>
+          <p>Personas beneficiadas en cada facultad (2026)</p>
+        </div>
+        <div class="chart-wrapper">
+          <canvas
+            baseChart
+            type="bar"
+            [data]="impactoBarChartData"
+            [options]="impactoBarChartOptions"
+            class="chart-canvas"
+          ></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila 2: Gráfico de Pastel y Línea -->
+    <div class="charts-row">
+      <!-- Gráfico de Pastel (Distribución de Servicios) -->
+      <div class="chart-container medium">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h4><i class="fa-solid fa-chart-pie"></i> Distribución de Servicios</h4>
+            <p>Tipo de servicios prestados</p>
+          </div>
+          <div class="chart-wrapper">
+            <canvas
+              baseChart
+              type="doughnut"
+              [data]="serviciosChartData"
+              [options]="serviciosChartOptions"
+              class="chart-canvas"
+            ></canvas>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de Línea (Progreso) -->
+      <div class="chart-container medium">
+        <div class="chart-card">
+          <div class="chart-header">
+            <h4><i class="fa-solid fa-chart-line"></i> Progreso Mensual</h4>
+            <p>Evolución de jornadas y personas beneficiadas</p>
+          </div>
+          <div class="chart-wrapper">
+            <canvas
+              baseChart
+              type="line"
+              [data]="progresoChartData"
+              [options]="progresoChartOptions"
+              class="chart-canvas"
+            ></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Galería de Proyectos -->
+  <div class="gallery-section">
+    <div class="section-title">
+      <h3>Proyectos en Acción</h3>
+      <p>Conoce las iniciativas que transforman nuestro territorio</p>
+    </div>
+
+    <div class="impact-gallery">
+
+      <!-- 1. Salud Comunitaria -->
+      <div class="gallery-item">
+        <img src="assets/images/saludcomunitaria.jpg.jpg" alt="Brigada Médica" loading="lazy">
+        <div class="item-overlay">
+          <h4>Brigada Integral de Salud</h4>
+          <p>Támesis, Antioquia - Atención primaria y prevención.</p>
+        </div>
+      </div>
+
+      <!-- 2. Bienestar Animal -->
+      <div class="gallery-item">
+        <img src="assets/images/bienestar.jpg.jpg" alt="Bienestar Animal" loading="lazy">
+        <div class="item-overlay">
+          <h4>Atención Veterinaria</h4>
+          <p>Jornada de desparasitación y cuidado en zonas rurales.</p>
+        </div>
+      </div>
+
+      <!-- 3. Consultorio Jurídico (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/eventocomunitario.jpg.webp" alt="Asesoría Legal" loading="lazy">
+        <div class="item-overlay">
+          <h4>Justicia al Barrio</h4>
+          <p>Asesoría legal gratuita para la resolución de conflictos.</p>
+        </div>
+      </div>
+
+      <!-- 4. Medio Ambiente (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/medioambiente.jpg.jpg" alt="Reforestación" loading="lazy">
+        <div class="item-overlay">
+          <h4>Conciencia Verde</h4>
+          <p>Jornada de reforestación y educación ambiental.</p>
+        </div>
+      </div>
+
+      <!-- 5. Apoyo Empresarial (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/empresariales.jpg.jpg" alt="Emprendimiento" loading="lazy">
+        <div class="item-overlay">
+          <h4>Fortalecimiento Pyme</h4>
+          <p>Capacitación técnica para emprendedores locales.</p>
+        </div>
+      </div>
+
+      <!-- 6. Educación y TIC (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/tallerformalizacióndenegocios.jpg.jpg" alt="Clase de computación" loading="lazy">
+        <div class="item-overlay">
+          <h4>Alfabetización Digital</h4>
+          <p>Inclusión tecnológica para adultos mayores y niños.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

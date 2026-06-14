@@ -1,0 +1,124 @@
+<section class="page-container">
+  <div class="header-section">
+    <h2><i class="fas fa-leaf"></i> Ingeniería y Medio Ambiente</h2>
+    <p class="subtitle">Gestión de asesorías técnicas, ambientales y proyectos sostenibles</p>
+  </div>
+
+  <div class="card-form">
+    <form (ngSubmit)="guardar()" #ingenieriaForm="ngForm">
+      <div class="form-grid">
+
+        <!-- Selección de Beneficiario -->
+        <div class="form-group">
+          <label for="beneficiario">ID del Beneficiario</label>
+          <input
+            type="number"
+            id="beneficiario"
+            name="beneficiarioId"
+            [(ngModel)]="nuevoRegistro.beneficiarioId"
+            placeholder="Ingrese el ID"
+            required>
+        </div>
+
+        <!-- Tipo de Asesoría -->
+        <div class="form-group">
+          <label for="tipoServicio">Tipo de Asesoría</label>
+          <select id="tipoServicio" name="tipoServicio" [(ngModel)]="nuevoRegistro.tipoServicio" required>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option value="Asesoría Ambiental">Asesoría Ambiental</option>
+            <option value="Ingeniería Civil/Industrial">Ingeniería Técnica</option>
+            <option value="Gestión de Residuos">Gestión de Residuos</option>
+            <option value="Sostenibilidad">Sostenibilidad y Energías</option>
+          </select>
+        </div>
+
+        <!-- Facultad Responsable -->
+        <div class="form-group">
+          <label for="facultad">Facultad Responsable</label>
+          <input
+            type="text"
+            id="facultad"
+            name="facultadResponsable"
+            [(ngModel)]="nuevoRegistro.facultadResponsable">
+        </div>
+
+        <!-- Tiempo de Atención -->
+        <div class="form-group">
+          <label for="tiempo">Tiempo de Atención</label>
+          <input
+            type="text"
+            id="tiempo"
+            name="tiempoAtencion"
+            [(ngModel)]="nuevoRegistro.tiempoAtencion"
+            placeholder="Ej: 1 hora">
+        </div>
+      </div>
+
+      <!-- Descripción del Proyecto/Asesoría -->
+      <div class="form-group full-width">
+        <label for="descripcion">Descripción de la Asesoría o Hallazgos Técnicos</label>
+        <textarea
+          id="descripcion"
+          name="descripcionAtencion"
+          [(ngModel)]="nuevoRegistro.descripcionAtencion"
+          rows="3"
+          placeholder="Detalle los puntos clave de la asesoría técnica..."></textarea>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="resultado">Resultado Obtenido</label>
+          <input type="text" id="resultado" name="resultado" [(ngModel)]="nuevoRegistro.resultado" placeholder="Ej: Plano aprobado / Informe emitido">
+        </div>
+        <div class="form-group">
+          <label for="evidencias">Link de Documentación Técnica</label>
+          <input type="text" id="evidencias" name="evidenciasUrl" [(ngModel)]="nuevoRegistro.evidenciasUrl" placeholder="URL de planos o informes">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save" [disabled]="!ingenieriaForm.valid">
+          <i class="fas fa-tools"></i> Registrar Asesoría
+        </button>
+        <button type="button" class="btn-clear" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabla de Registros -->
+  <div class="table-section">
+    <h3>Historial de Ingeniería y Ambiente</h3>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Beneficiario</th>
+            <th>Servicio</th>
+            <th>Estado/Resultado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listaRegistros.length === 0) {
+            <tr>
+              <td colspan="5" class="empty-msg">No hay registros técnicos disponibles</td>
+            </tr>
+          } @else {
+            @for (reg of listaRegistros; track reg.id) {
+              <tr>
+                <td>{{ reg.id }}</td>
+                <td>{{ reg.beneficiarioId }}</td>
+                <td><span class="badge-tech">{{ reg.tipoServicio }}</span></td>
+                <td>{{ reg.resultado }}</td>
+                <td>
+                  <button class="btn-icon delete" (click)="eliminar(reg.id!)"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

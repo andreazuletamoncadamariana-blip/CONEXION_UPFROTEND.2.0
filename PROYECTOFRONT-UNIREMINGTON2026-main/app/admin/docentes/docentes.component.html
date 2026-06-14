@@ -1,0 +1,114 @@
+<div class="form-wrapper">
+  <div class="header-panel">
+    <div>
+      <span class="eyebrow">Módulo Docentes</span>
+      <h2>Registro y administración de docentes</h2>
+      <p>Gestiona el personal académico con un CRUD completo y un formulario claro.</p>
+    </div>
+
+    <button class="btn btn-primary btn-new" *ngIf="!mostrarFormulario" (click)="abrirFormularioCrear()">
+      + Nuevo Docente
+    </button>
+  </div>
+
+  <div class="save-toast" *ngIf="mensajeExito">{{ mensajeExito }}</div>
+  <div class="loading-spinner" *ngIf="cargando">Cargando docentes...</div>
+
+  <div class="card form-card" *ngIf="mostrarFormulario">
+    <div class="form-card-header">
+      <span class="eyebrow">{{ modoEdicion ? 'Editar docente' : 'Nuevo docente' }}</span>
+      <h3>{{ modoEdicion ? 'Actualiza los datos del docente' : 'Completa el formulario de registro' }}</h3>
+    </div>
+
+    <form (ngSubmit)="guardarDocente()" class="grid-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" [(ngModel)]="docenteForm.nombre" name="nombre" placeholder="Ej: Juan" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="apellido">Apellido</label>
+        <input id="apellido" [(ngModel)]="docenteForm.apellido" name="apellido" placeholder="Ej: Pérez" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="documento">Documento</label>
+        <input id="documento" [(ngModel)]="docenteForm.documento" name="documento" placeholder="Ej: 10203040" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="correo">Correo institucional / Email</label>
+        <input id="correo" [(ngModel)]="docenteForm.correoInstitucional" name="correoInstitucional" placeholder="ejemplo@uniremington.edu.co" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña de acceso</label>
+        <input id="password" [(ngModel)]="docenteForm.contrasenaAcceso" name="contrasenaAcceso" type="password" placeholder="••••••••" [required]="!modoEdicion" class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="facultad">Facultad</label>
+        <select id="facultad" [(ngModel)]="docenteForm.facultad" name="facultad" required class="select-field">
+          <option value="" disabled>Seleccione una facultad</option>
+          <option *ngFor="let facultad of facultades" [value]="facultad">{{ facultad }}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="especialidad">Especialidad</label>
+        <input id="especialidad" [(ngModel)]="docenteForm.especialidad" name="especialidad" placeholder="Ej: Backend" class="input-field">
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : (modoEdicion ? 'Actualizar docente' : 'Guardar docente') }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="impact-section" *ngIf="!mostrarFormulario && !cargando">
+    <div class="impact-header">
+      <span class="eyebrow">Impacto académico</span>
+      <h3>Docentes registrados</h3>
+      <p>Visualiza y administra los docentes activos desde este módulo.</p>
+    </div>
+
+    <div class="teachers-filter">
+      <input
+        type="text"
+        class="filter-input"
+        [(ngModel)]="filtro"
+        placeholder="🔍 Buscar docente por nombre, apellido, correo o documento..."
+      />
+    </div>
+  </div>
+
+  <table class="data-table" *ngIf="!mostrarFormulario && !cargando">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Correo</th>
+        <th>Facultad</th>
+        <th>Especialidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let d of docentesFiltrados">
+        <td>{{ d.nombre }} {{ d.apellido }}</td>
+        <td>{{ d.correoInstitucional }}</td>
+        <td>{{ d.facultad }}</td>
+        <td>{{ d.especialidad }}</td>
+        <td class="table-actions">
+          <button class="btn btn-edit" (click)="editarDocente(d)" title="Editar"><i class="fa-solid fa-pen"></i> Editar</button>
+          <button class="btn btn-delete" (click)="eliminarDocente(d)" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+        </td>
+      </tr>
+      <tr *ngIf="docentesFiltrados.length === 0">
+        <td colspan="5" class="no-results">No se encontraron docentes con los criterios de búsqueda.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

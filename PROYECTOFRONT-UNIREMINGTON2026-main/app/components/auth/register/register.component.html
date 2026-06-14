@@ -1,0 +1,30 @@
+<div class="auth-container">
+  <div class="card">
+    <h2>Crear Cuenta</h2>
+    <form (ngSubmit)="registrar()">
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input [(ngModel)]="usuario.nombre" name="nombre" type="text" required placeholder="Ej: Juan Pérez">
+      </div>
+      <div class="form-group">
+        <label>Correo Electrónico</label>
+        <input [(ngModel)]="usuario.email" name="email" type="email" required placeholder="ejemplo@uniremington.edu.co">
+      </div>
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input [(ngModel)]="usuario.password" name="password" type="password" required placeholder="********">
+      </div>
+      <div class="form-group">
+        <label>Tipo de Usuario</label>
+        <select [(ngModel)]="usuario.rol" name="rol" required>
+          <option value="ESTUDIANTE">Estudiante</option>
+          <option value="DOCENTE">Docente</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-main">Registrarse</button>
+    </form>
+    <p class="auth-footer">
+      ¿Ya tienes cuenta? <a routerLink="/login">Inicia sesión aquí</a>
+    </p>
+  </div>
+</div>

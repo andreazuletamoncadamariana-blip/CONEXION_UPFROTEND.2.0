@@ -1,0 +1,156 @@
+<div class="form-wrapper">
+  <div class="top-panel">
+    <div class="page-intro">
+      <span class="eyebrow">Módulo Estudiantes</span>
+      <h2>Administra estudiantes con un flujo limpio y eficiente</h2>
+      <p>Registra, actualiza y visualiza el estado académico sin salir de una sola vista elegante.</p>
+    </div>
+
+    <button class="btn btn-primary btn-new" *ngIf="!mostrarFormulario" (click)="abrirFormularioCrear()">
+      + Nuevo estudiante
+    </button>
+  </div>
+
+  <div class="save-toast" *ngIf="mensajeExito">{{ mensajeExito }}</div>
+  <div class="loading-spinner" *ngIf="cargando">Cargando datos de la academia...</div>
+
+  <div class="summary-grid" *ngIf="!mostrarFormulario && !cargando">
+    <div class="summary-card summary-card--brand">
+      <span class="summary-label">Estudiantes registrados</span>
+      <strong class="summary-value">{{ estudiantesFiltrados.length || 0 }}</strong>
+      <p class="summary-note">Instituidos activos en el sistema.</p>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">Facultades</span>
+      <strong class="summary-value">{{ facultades.length || 0 }}</strong>
+      <p class="summary-note">Áreas académicas disponibles.</p>
+    </div>
+    <div class="summary-card">
+      <span class="summary-label">Distribución</span>
+      <strong class="summary-value">{{ getFacultadesEstadisticas().length || 0 }}</strong>
+      <p class="summary-note">Segmentos por facultad actualizados.</p>
+    </div>
+  </div>
+
+  <div class="card form-card" *ngIf="mostrarFormulario">
+    <div class="form-card-header">
+      <span class="eyebrow">{{ modoEdicion ? 'Editar estudiante' : 'Nuevo estudiante' }}</span>
+      <h3>{{ modoEdicion ? 'Actualiza los datos del estudiante' : 'Completa el formulario de inscripción' }}</h3>
+    </div>
+
+    <form (ngSubmit)="guardarEstudiante()" class="grid-form">
+      <div class="form-group">
+        <label for="nombre">Nombre</label>
+        <input id="nombre" [(ngModel)]="estudianteForm.nombre" name="nombre" placeholder="Nombre completo" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="email">Correo electrónico</label>
+        <input id="email" type="email" [(ngModel)]="estudianteForm.email" name="email" placeholder="email@uniremington.edu.co" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="documento">Documento de identidad</label>
+        <input id="documento" type="text" [(ngModel)]="estudianteForm.documento" name="documento" placeholder="Número de documento" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="facultad">Facultad</label>
+        <select id="facultad" [(ngModel)]="estudianteForm.facultad" name="facultad" required class="select-field">
+          <option value="" disabled selected>Seleccionar facultad</option>
+          <option *ngFor="let facultad of facultades" [value]="facultad">{{ facultad }}</option>
+        </select>
+      </div>
+
+      <div class="form-group" *ngIf="!modoEdicion">
+        <label for="password">Contraseña</label>
+        <input id="password" [(ngModel)]="estudianteForm.password" name="password" type="password" placeholder="Crea una contraseña segura" required class="input-field">
+      </div>
+
+      <div class="actions">
+        <button type="button" class="btn btn-secondary" (click)="cerrarFormulario()">Cancelar</button>
+        <button type="submit" class="btn btn-primary" [class.saving]="guardando" [disabled]="guardando">
+          {{ guardando ? 'Guardando...' : 'Guardar estudiante' }}
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="impact-section" *ngIf="!mostrarFormulario && !cargando">
+    <div class="impact-header">
+      <span class="eyebrow">Impacto y distribución</span>
+      <h3>Estudiantes por facultad</h3>
+      <p>Observa tendencias y resultados clave de los programas académicos.</p>
+    </div>
+
+    <div class="faculty-grid">
+      <div class="faculty-card" *ngFor="let fac of getFacultadesEstadisticas()">
+        <div class="faculty-icon" [ngClass]="'icon-' + fac.icono">
+          <i [class]="'fa-solid ' + fac.icono"></i>
+        </div>
+        <div class="faculty-content">
+          <h4>{{ fac.nombre }}</h4>
+          <div class="faculty-stats">
+            <div class="stat-item">
+              <span class="stat-value">{{ fac.cantidad }}</span>
+              <span class="stat-label">Estudiantes</span>
+            </div>
+            <div class="stat-item">
+              <span class="stat-value">{{ fac.porcentaje }}%</span>
+              <span class="stat-label">Del total</span>
+            </div>
+          </div>
+          <div class="progress-bar">
+            <div class="progress-fill" [style.width.%]="fac.porcentaje"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="students-filter">
+      <input
+        type="text"
+        class="filter-input"
+        [(ngModel)]="filtro"
+        placeholder="🔍 Buscar estudiante por nombre, email o documento..."
+      />
+    </div>
+  </div>
+
+  <div class="table-panel card card-soft" *ngIf="!mostrarFormulario && !cargando">
+    <div class="table-header">
+      <div>
+        <p class="eyebrow">Listado</p>
+        <h3>Estudiantes activos</h3>
+      </div>
+      <span class="badge">Mostrando {{ estudiantesFiltrados.length || 0 }}</span>
+    </div>
+
+    <div class="table-responsive">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Facultad</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let e of estudiantesFiltrados">
+            <td>{{ e.nombre }}</td>
+            <td>{{ e.email }}</td>
+            <td>{{ e.facultad }}</td>
+            <td class="table-actions">
+              <button class="btn btn-edit" (click)="editarEstudiante(e)" title="Editar"><i class="fa-solid fa-pen"></i> Editar</button>
+              <button class="btn btn-delete" (click)="eliminarEstudiante(e)" title="Eliminar"><i class="fa-solid fa-trash"></i></button>
+            </td>
+          </tr>
+          <tr *ngIf="estudiantesFiltrados.length === 0">
+            <td colspan="4" class="no-results">No se encontraron estudiantes con los criterios de búsqueda.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

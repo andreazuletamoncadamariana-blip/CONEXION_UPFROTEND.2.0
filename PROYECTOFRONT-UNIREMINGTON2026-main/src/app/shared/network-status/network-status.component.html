@@ -1,0 +1,28 @@
+<div
+  class="network-badge"
+  [class.status-online]="isOnline"
+  [class.status-offline]="!isOnline"
+>
+  <div class="status-content">
+    <i
+      class="fas"
+      [class.fa-check-circle]="isOnline"
+      [class.fa-exclamation-triangle]="!isOnline"
+    ></i>
+
+    <div class="text-group">
+      <span class="main-label">
+        {{ isOnline ? 'Sistema en línea' : 'Modo offline' }}
+      </span>
+
+      <small class="sub-label">
+        {{ isOnline ? 'Datos sincronizados' : 'Captura local activa' }}
+      </small>
+    </div>
+  </div>
+
+  <div class="offline-alert" [hidden]="isOnline">
+    <i class="fas fa-info-circle"></i>
+    Los registros se sincronizarán automáticamente al detectar señal.
+  </div>
+</div>

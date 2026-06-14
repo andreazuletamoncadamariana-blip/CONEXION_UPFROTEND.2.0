@@ -1,0 +1,142 @@
+<section class="page">
+  <h2>Seguimientos</h2>
+  <p class="subtitle">Registro de seguimientos</p>
+
+  <!-- Sección de búsqueda -->
+  <div class="buscador">
+    <div class="input-group">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Buscar por documento"
+        [(ngModel)]="filtroDocumento"
+        (keyup.enter)="buscarPorDocumento()"
+      />
+      <button type="button" class="btn btn-primary" (click)="buscarPorDocumento()">
+        Buscar
+      </button>
+      <button type="button" class="btn btn-secondary" (click)="limpiarBusqueda()">
+        Limpiar
+      </button>
+    </div>
+
+    <div class="form-group">
+      <label for="nombreBeneficiario">Nombre del beneficiario:</label>
+      <input
+        type="text"
+        id="nombreBeneficiario"
+        class="form-control"
+        [value]="nombreBeneficiario"
+        readonly
+      />
+    </div>
+    @if (nombreBeneficiario) {
+      <p class="info">Mostrando seguimientos de: <strong>{{ nombreBeneficiario }}</strong></p>
+    }
+  </div>
+
+  <!-- Formulario para agregar nuevo seguimiento -->
+  <div class="formulario-section">
+    <h3>Nuevo Seguimiento</h3>
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+    <form [formGroup]="formularioSeguimiento" (ngSubmit)="guardarSeguimiento()">
+      <input type="hidden" formControlName="beneficiarioId" />
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fecha">Fecha:</label>
+          <input
+            type="date"
+            id="fecha"
+            class="form-control"
+            formControlName="fecha"
+          />
+          @if (formularioSeguimiento.get('fecha')?.hasError('required')) {
+            <span class="error-message">La fecha es requerida</span>
+          }
+        </div>
+
+        <div class="form-group">
+          <label for="estado">Estado:</label>
+          <select id="estado" class="form-control" formControlName="estado">
+            <option value="">Seleccione un estado</option>
+            <option value="pendiente">Pendiente</option>
+            <option value="en_progreso">En progreso</option>
+            <option value="completado">Completado</option>
+          </select>
+          @if (formularioSeguimiento.get('estado')?.hasError('required')) {
+            <span class="error-message">El estado es requerido</span>
+          }
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="observacion">Observaciones:</label>
+        <textarea
+          id="observacion"
+          class="form-control"
+          rows="4"
+          formControlName="observacion"
+          placeholder="Ingrese las observaciones del seguimiento"
+        ></textarea>
+        @if (formularioSeguimiento.get('observacion')?.hasError('required')) {
+          <span class="error-message">Las observaciones son requeridas</span>
+        }
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="formularioSeguimiento.invalid">
+          Guardar
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="limpiarFormulario()">
+          Limpiar
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-wrap">
+    <table class="seguimiento-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Observaciones</th>
+          <th>Estado</th>
+          <th>Beneficiario ID</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        @if (loading) {
+          <tr>
+            <td colspan="6" class="empty">Cargando seguimientos...</td>
+          </tr>
+        } @else if (listaSeguimientos.length === 0) {
+          <tr>
+            <td colspan="6" class="empty">No hay seguimientos registrados</td>
+          </tr>
+        } @else {
+          @for (seg of listaSeguimientos; track seg.id) {
+            <tr>
+              <td>{{ seg.id }}</td>
+              <td>{{ seg.fecha | date: 'dd/MM/yyyy' }}</td>
+              <td>{{ seg.observacion }}</td>
+              <td>
+                <span [class]="'estado-' + seg.estado">
+                  {{ seg.estado | titlecase }}
+                </span>
+              </td>
+              <td>{{ seg.beneficiarioId }}</td>
+              <td class="actions">
+                <button type="button" class="btn btn-secondary">Editar</button>
+                <button type="button" class="btn btn-danger">Eliminar</button>
+              </td>
+            </tr>
+          }
+        }
+      </tbody>
+    </table>
+  </div>
+</section>

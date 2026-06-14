@@ -1,0 +1,285 @@
+:host {
+  display: block;
+  width: 100%;
+}
+
+.nav-spacer {
+  height: 96px;
+}
+
+.main-container {
+  width: min(1440px, 100%);
+  max-width: 1440px;
+  min-height: 72vh;
+  margin: 0 auto;
+  padding: clamp(32px, 4vw, 64px) 0;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+.navbar-premium {
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid rgba(15, 23, 42, 0.08);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  box-shadow: 0 28px 70px rgba(15, 23, 42, 0.08);
+}
+
+.nav-content {
+  width: min(1200px, 96%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px 0;
+}
+
+.brand-logo,
+.footer-logo {
+  height: 48px;
+  object-fit: contain;
+}
+
+.nav-main {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex: 1;
+  justify-content: space-between;
+}
+
+.menu-toggle {
+  display: none;
+  background: transparent;
+  border: none;
+  font-size: 1.3rem;
+  color: rgba(15,23,42,0.84);
+}
+
+.nav-links {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.nav-links a {
+  color: #0f172a;
+  font-weight: 700;
+  padding: 10px 12px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.nav-links a.active-pill,
+.nav-links a:hover {
+  background: rgba(15, 61, 145, 0.06);
+  color: #003366;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.btn-solicitar,
+.btn-donar,
+.btn-game,
+.btn-access {
+  border-radius: 999px;
+  font-weight: 700;
+  padding: 12px 18px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
+}
+
+.btn-solicitar {
+  background: linear-gradient(135deg, #0f3d91, #16a085);
+  color: #ffffff;
+}
+
+.btn-donar {
+  background: linear-gradient(135deg, #ec4899, #f97316);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-game {
+  background: linear-gradient(135deg, #6366f1, #22d3ee);
+  color: #ffffff;
+  border: none;
+}
+
+.btn-access {
+  background: rgba(15, 23, 42, 0.06);
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  color: #0f172a;
+}
+
+.btn-solicitar:hover,
+.btn-donar:hover,
+.btn-game:hover,
+.btn-access:hover {
+  transform: translateY(-1px);
+  opacity: 0.96;
+}
+
+.footer-site {
+  background: linear-gradient(180deg, #051a3b 0%, #081a35 100%);
+  color: #dbeafe;
+  padding: 72px 0 24px;
+  margin-top: 40px;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.6fr 1fr 1fr 1fr;
+  gap: 30px;
+  align-items: start;
+  width: min(1200px, 96%);
+  margin: 0 auto;
+}
+
+.footer-site h4 {
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+
+.footer-site a {
+  color: #dbeafe;
+  text-decoration: none;
+}
+
+.footer-site a:hover {
+  color: #ffffff;
+}
+
+.brand-description {
+  color: rgba(219, 234, 254, 0.88);
+  max-width: 360px;
+  line-height: 1.8;
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  margin-top: 32px;
+  padding-top: 20px;
+}
+
+.footer-bottom-inner {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  width: min(1200px, 96%);
+  margin: 0 auto;
+  color: rgba(219, 234, 254, 0.78);
+  font-size: 0.92rem;
+}
+
+.nav-links.open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 74px;
+  left: 16px;
+  right: 16px;
+  background: #ffffff;
+  padding: 18px;
+  border-radius: 18px;
+  box-shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+}
+
+.donacion-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(2, 6, 23, 0.72);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1400;
+}
+
+.donacion-modal-content {
+  max-width: 620px;
+  width: 100%;
+  border-radius: 24px;
+  overflow: hidden;
+}
+
+.close-donacion {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: rgba(255,255,255,0.9);
+  border: none;
+  border-radius: 50%;
+  width: 34px;
+  height: 34px;
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+@media (max-width: 880px) {
+  .menu-toggle {
+    display: inline-flex;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-content {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .nav-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-bottom-inner {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .nav-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-solicitar,
+  .btn-donar,
+  .btn-game,
+  .btn-access {
+    width: 100%;
+  }
+
+  .footer-grid {
+    grid-template-columns: 1fr;
+  }
+}

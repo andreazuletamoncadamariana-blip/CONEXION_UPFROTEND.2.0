@@ -1,0 +1,128 @@
+<section class="page-container">
+  <div class="header-section">
+    <h2><i class="fas fa-heartbeat"></i> Servicios de Salud</h2>
+    <p class="subtitle">Registro de atención médica, nutrición y especialidades</p>
+  </div>
+
+  <div class="card-form">
+    <form (ngSubmit)="guardarAtencion()" #saludForm="ngForm">
+      <div class="form-grid">
+
+        <!-- Selección de Beneficiario -->
+        <div class="form-group">
+          <label for="beneficiario">Beneficiario (ID o Documento)</label>
+          <input
+            type="number"
+            id="beneficiario"
+            name="beneficiarioId"
+            [(ngModel)]="nuevaAtencion.beneficiarioId"
+            placeholder="Ej: 101"
+            required>
+        </div>
+
+        <!-- Tipo de Especialidad -->
+        <div class="form-group">
+          <label for="tipoServicio">Especialidad de Salud</label>
+          <select id="tipoServicio" name="tipoServicio" [(ngModel)]="nuevaAtencion.tipoServicio" required>
+            <option value="" disabled selected>Seleccione una especialidad</option>
+            <option value="Nutrición">Nutrición</option>
+            <option value="Enfermería">Enfermería</option>
+            <option value="Medicina Familiar">Medicina Familiar y Comunitaria</option>
+            <option value="Ginecobstetricia">Ginecobstetricia</option>
+            <option value="Psiquiatría">Psiquiatría</option>
+            <option value="Pediatría">Pediatría</option>
+          </select>
+        </div>
+
+        <!-- Facultad Responsable -->
+        <div class="form-group">
+          <label for="facultad">Facultad Responsable</label>
+          <input
+            type="text"
+            id="facultad"
+            name="facultadResponsable"
+            [(ngModel)]="nuevaAtencion.facultadResponsable"
+            placeholder="Ej: Facultad de Ciencias de la Salud">
+        </div>
+
+        <!-- Tiempo de Atención -->
+        <div class="form-group">
+          <label for="tiempo">Tiempo de Atención (min)</label>
+          <input
+            type="text"
+            id="tiempo"
+            name="tiempoAtencion"
+            [(ngModel)]="nuevaAtencion.tiempoAtencion"
+            placeholder="Ej: 45 minutos">
+        </div>
+      </div>
+
+      <!-- Descripción Detallada -->
+      <div class="form-group full-width">
+        <label for="descripcion">Descripción de la Atención / Diagnóstico Preliminar</label>
+        <textarea
+          id="descripcion"
+          name="descripcionAtencion"
+          [(ngModel)]="nuevaAtencion.descripcionAtencion"
+          rows="3"
+          placeholder="Describa el motivo de la consulta y hallazgos..."></textarea>
+      </div>
+
+      <!-- Observaciones y Resultados -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="resultado">Resultado / Plan a seguir</label>
+          <input type="text" id="resultado" name="resultado" [(ngModel)]="nuevaAtencion.resultado" placeholder="Ej: Remisión a especialista">
+        </div>
+        <div class="form-group">
+          <label for="evidencias">URL de Evidencias (Soportes)</label>
+          <input type="text" id="evidencias" name="evidenciasUrl" [(ngModel)]="nuevaAtencion.evidenciasUrl" placeholder="http://drive.com/archivo">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save" [disabled]="!saludForm.valid">
+          <i class="fas fa-save"></i> Registrar Atención
+        </button>
+        <button type="button" class="btn-clear" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabla de Registros Recientes -->
+  <div class="table-section">
+    <h3>Historial Reciente de Atenciones</h3>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Beneficiario</th>
+            <th>Especialidad</th>
+            <th>Resultado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listaAtenciones.length === 0) {
+            <tr>
+              <td colspan="5" class="empty-msg">No hay registros de salud para mostrar</td>
+            </tr>
+          } @else {
+            @for (item of listaAtenciones; track item.id) {
+              <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.beneficiarioId }}</td>
+                <td><span class="badge">{{ item.tipoServicio }}</span></td>
+                <td>{{ item.resultado }}</td>
+                <td>
+                  <button class="btn-icon delete" (click)="eliminar(item.id!)"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

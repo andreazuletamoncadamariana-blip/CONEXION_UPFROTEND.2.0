@@ -1,0 +1,130 @@
+// --- Estilos Globales de Contenedor ---
+.auth-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0f2f5;
+  padding: 20px;
+}
+
+// --- Tarjeta Principal ---
+.auth-card {
+  display: flex;
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
+  background: white;
+  border-radius: 30px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+
+  // Lado Azul (Sidebar)
+  .auth-sidebar {
+    flex: 1;
+    background: #002d5d;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 40px;
+    text-align: center;
+
+    .brand-logo-white {
+      width: 150px;
+      height: 150px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      img { width: 100px; }
+    }
+
+    h1 { font-size: 2rem; font-weight: 800; margin-bottom: 5px; }
+    .highlight-red { color: #e30613; }
+    p { opacity: 0.8; font-size: 0.9rem; }
+  }
+
+  // Lado Formulario
+  .auth-form-section {
+    flex: 1.2;
+    padding: 60px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .back-link {
+      position: absolute;
+      top: 30px;
+      left: 60px;
+      text-decoration: none;
+      color: #64748b;
+      font-size: 0.9rem;
+      &:hover { color: #004b93; }
+    }
+
+    h2 { font-size: 2.2rem; color: #002d5d; font-weight: 700; margin-top: 20px; }
+    .subtitle { color: #64748b; margin-bottom: 30px; }
+  }
+}
+
+// --- Inputs estilo "Pill" ---
+.input-group {
+  margin-bottom: 20px;
+  input {
+    width: 100%;
+    padding: 15px 20px;
+    background: #f8fafc;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 15px;
+    font-size: 1rem;
+    transition: all 0.3s;
+    &:focus { outline: none; border-color: #004b93; background: white; }
+  }
+}
+
+// --- Botón Primario ---
+.btn-primary-auth {
+  width: 100%;
+  padding: 16px;
+  background: #003566;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin-top: 10px;
+  &:hover { background: #002344; transform: translateY(-2px); }
+}
+
+// --- Nueva opción de Registro ---
+.register-option {
+  margin-top: 25px;
+  text-align: center;
+  font-size: 0.9rem;
+  color: #64748b;
+  a {
+    color: #004b93;
+    font-weight: 600;
+    text-decoration: none;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+.footer-text {
+  margin-top: auto;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  text-align: center;
+}
+
+// --- Responsividad (Mobile) ---
+@media (max-width: 768px) {
+  .auth-card { flex-direction: column; height: auto; border-radius: 22px; }
+  .auth-sidebar { padding: 30px; }
+  .auth-form-section { padding: 30px; }
+}

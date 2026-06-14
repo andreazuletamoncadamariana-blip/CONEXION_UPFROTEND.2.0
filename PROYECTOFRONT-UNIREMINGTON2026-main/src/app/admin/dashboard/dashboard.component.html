@@ -1,0 +1,265 @@
+<div class="dashboard-container">
+
+  <section class="blog-management-hub">
+    <div class="blog-header">
+      <div>
+        <span class="eyebrow">Blog y noticias</span>
+        <h2>Control de publicaciones</h2>
+        <p>Agrega noticias, actualiza contenido, anexa informacion o quita entradas del blog publico.</p>
+      </div>
+      <div class="blog-direct-actions">
+        <button type="button" class="btn btn-primary" (click)="setBlogMode('agregar')">
+          <i class="fa-solid fa-plus"></i> Agregar
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="setBlogMode('editar')">
+          <i class="fa-solid fa-pen-to-square"></i> Modificar
+        </button>
+        <button type="button" class="btn btn-tertiary" (click)="setBlogMode('anexar')">
+          <i class="fa-solid fa-paperclip"></i> Anexar
+        </button>
+        <button type="button" class="btn btn-danger" (click)="setBlogMode('quitar')">
+          <i class="fa-solid fa-trash-can"></i> Quitar
+        </button>
+        <button type="button" class="btn btn-outline" (click)="abrirBlogPublico()">
+          <i class="fa-solid fa-eye"></i> Ver blog
+        </button>
+      </div>
+    </div>
+
+    <div class="blog-mode-tabs">
+      <button type="button" [class.active]="blogMode === 'agregar'" (click)="setBlogMode('agregar')">
+        <i class="fa-solid fa-plus"></i> Agregar
+      </button>
+      <button type="button" [class.active]="blogMode === 'editar'" (click)="setBlogMode('editar')">
+        <i class="fa-solid fa-pen-to-square"></i> Modificar
+      </button>
+      <button type="button" [class.active]="blogMode === 'anexar'" (click)="setBlogMode('anexar')">
+        <i class="fa-solid fa-paperclip"></i> Anexar
+      </button>
+      <button type="button" [class.active]="blogMode === 'quitar'" (click)="setBlogMode('quitar')">
+        <i class="fa-solid fa-trash-can"></i> Quitar
+      </button>
+    </div>
+
+    <div class="blog-admin-grid">
+      <form class="blog-admin-form" *ngIf="blogMode === 'agregar' || blogMode === 'editar'" (ngSubmit)="guardarNoticia()">
+        <label *ngIf="blogMode === 'editar'">
+          Noticia
+          <select name="editPost" [(ngModel)]="selectedBlogPostId" (change)="cargarNoticiaSeleccionada()">
+            <option *ngFor="let post of blogPosts" [ngValue]="post.id">{{ post.title }}</option>
+          </select>
+        </label>
+
+        <label>
+          Titulo
+          <input type="text" name="title" [(ngModel)]="blogForm.title" placeholder="Titulo de la noticia">
+        </label>
+
+        <label>
+          Categoria
+          <input type="text" name="category" [(ngModel)]="blogForm.category" placeholder="Social, Academico, Institucional">
+        </label>
+
+        <label>
+          Imagen
+          <input type="text" name="image" [(ngModel)]="blogForm.image" placeholder="assets/images/compromiso.jpg.jpg">
+        </label>
+
+        <label class="span-2">
+          Contenido
+          <textarea name="content" rows="5" [(ngModel)]="blogForm.content" placeholder="Escribe el contenido que vera el visitante en el blog"></textarea>
+        </label>
+
+        <button type="submit" class="btn btn-primary">
+          <i class="fa-solid fa-floppy-disk"></i> {{ blogMode === 'editar' ? 'Guardar cambios' : 'Agregar al blog' }}
+        </button>
+      </form>
+
+      <div class="blog-admin-form" *ngIf="blogMode === 'anexar'">
+        <label>
+          Noticia
+          <select name="appendPost" [(ngModel)]="selectedBlogPostId" (change)="cargarNoticiaSeleccionada()">
+            <option *ngFor="let post of blogPosts" [ngValue]="post.id">{{ post.title }}</option>
+          </select>
+        </label>
+        <label class="span-2">
+          Texto para anexar
+          <textarea name="appendContent" rows="5" [(ngModel)]="appendContent" placeholder="Agrega nueva informacion sin borrar el contenido actual"></textarea>
+        </label>
+        <button type="button" class="btn btn-primary" (click)="anexarNoticia()">
+          <i class="fa-solid fa-paperclip"></i> Anexar al contenido
+        </button>
+      </div>
+
+      <div class="blog-admin-form danger-zone" *ngIf="blogMode === 'quitar'">
+        <label>
+          Noticia
+          <select name="deletePost" [(ngModel)]="selectedBlogPostId" (change)="cargarNoticiaSeleccionada()">
+            <option *ngFor="let post of blogPosts" [ngValue]="post.id">{{ post.title }}</option>
+          </select>
+        </label>
+        <p>Esta accion quita la noticia seleccionada de la vista publica del blog.</p>
+        <button type="button" class="btn btn-danger" (click)="quitarNoticia()">
+          <i class="fa-solid fa-trash-can"></i> Quitar noticia
+        </button>
+      </div>
+
+      <aside class="blog-preview-panel">
+        <span class="eyebrow">{{ blogPosts.length }} publicaciones</span>
+        <h3>{{ blogMode === 'agregar' ? 'Nueva publicacion' : blogForm.title || 'Selecciona una noticia' }}</h3>
+        <p>{{ blogMode === 'anexar' ? appendContent || 'El texto anexado aparecera al final de la noticia.' : blogForm.content || 'Completa el formulario para previsualizar el contenido.' }}</p>
+        <button type="button" class="btn btn-outline" (click)="abrirBlogPublico()">
+          <i class="fa-solid fa-eye"></i> Ver blog
+        </button>
+      </aside>
+    </div>
+
+    <p class="blog-admin-message" *ngIf="blogMessage">{{ blogMessage }}</p>
+  </section>
+
+  <section class="dashboard-hero">
+    <div class="hero-copy">
+      <span class="eyebrow">Panel de administradores</span>
+      <h1>Centro de control para gestionar usuarios, servicios y reportes</h1>
+      <p>
+        Una vista ejecutiva inspirada en paneles administrativos profesionales: resume lo que ocurre
+        en el sistema, muestra configuraciones clave, servicios principales y actividad reciente.
+      </p>
+
+      <div class="hero-actions">
+        <button type="button" class="btn btn-primary" (click)="navegarACrearEstudiante()">
+          <i class="fa-solid fa-user-plus"></i> Registrar estudiante
+        </button>
+        <button type="button" class="btn btn-secondary" (click)="navegarACrearDocente()">
+          <i class="fa-solid fa-chalkboard-user"></i> Registrar docente
+        </button>
+        <button type="button" class="btn btn-outline" (click)="cerrarSesion()">
+          <i class="fa-solid fa-right-from-bracket"></i> Cerrar sesion
+        </button>
+      </div>
+    </div>
+
+    <div class="control-status">
+      <div class="status-orb">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <span>Sistema operativo</span>
+      <strong>99.8%</strong>
+      <p>Estado general estable, con modulos principales disponibles.</p>
+    </div>
+  </section>
+
+  <section class="widget-grid" aria-label="Widgets de informacion">
+    <button
+      type="button"
+      class="info-widget"
+      *ngFor="let widget of widgets"
+      [class]="'info-widget accent-' + widget.accent"
+      (click)="navegarA(widget.route)"
+    >
+      <div class="widget-icon"><i [ngClass]="widget.icon"></i></div>
+      <span>{{ widget.label }}</span>
+      <strong>{{ widget.value }}</strong>
+      <p>{{ widget.detail }}</p>
+    </button>
+  </section>
+
+  <section class="setup-panel">
+    <div class="panel-header">
+      <div>
+        <span class="eyebrow">Empezar</span>
+        <h2>Configuracion esencial del panel</h2>
+      </div>
+      <button type="button" class="btn btn-tertiary" (click)="abrirReportes()">
+        <i class="fa-solid fa-chart-pie"></i> Ver reportes
+      </button>
+    </div>
+
+    <div class="setup-grid">
+      <article class="setup-card" *ngFor="let step of setupSteps" [class.done]="step.done">
+        <div class="setup-icon"><i [ngClass]="step.icon"></i></div>
+        <div>
+          <span class="status-pill">{{ step.done ? 'Configurado' : 'Pendiente' }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.description }}</p>
+          <button type="button" class="link-button" (click)="navegarA(step.route)">
+            {{ step.action }} <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <div class="main-grid">
+    <section class="services-panel">
+      <div class="panel-header">
+        <div>
+          <span class="eyebrow">Principales servicios</span>
+          <h2>Rendimiento operativo</h2>
+        </div>
+        <button type="button" class="btn btn-tertiary" (click)="navegarA('/servicios-prestados')">
+          Abrir servicios
+        </button>
+      </div>
+
+      <div class="service-list">
+        <button
+          type="button"
+          class="service-row"
+          *ngFor="let service of topServices"
+          (click)="navegarA('/servicios-prestados')"
+        >
+          <div class="service-icon"><i [ngClass]="service.icon"></i></div>
+          <div class="service-copy">
+            <strong>{{ service.name }}</strong>
+            <span>{{ service.owner }}</span>
+            <div class="bar">
+              <div class="bar-fill" [style.width.%]="service.progress"></div>
+            </div>
+          </div>
+          <span class="service-status">{{ service.status }}</span>
+        </button>
+      </div>
+    </section>
+
+    <aside class="side-panel">
+      <section class="card quick-card">
+        <div class="card-top">
+          <span class="eyebrow">Accesos rapidos</span>
+          <h3>Operaciones clave</h3>
+        </div>
+        <div class="quick-grid">
+          <button type="button" class="quick-btn" (click)="navegarACrearEstudiante()">
+            <i class="fa-solid fa-user-plus"></i> Nuevo estudiante
+          </button>
+          <button type="button" class="quick-btn" (click)="navegarACrearDocente()">
+            <i class="fa-solid fa-user-tie"></i> Nuevo docente
+          </button>
+          <button type="button" class="quick-btn" (click)="navegarA('/admin/reportes')">
+            <i class="fa-solid fa-file-chart-column"></i> Reportes
+          </button>
+          <button type="button" class="quick-btn" (click)="navegarA('/indicadores')">
+            <i class="fa-solid fa-gauge-high"></i> Indicadores
+          </button>
+        </div>
+      </section>
+
+      <section class="card activity-card">
+        <div class="card-top">
+          <span class="eyebrow">Inicios recientes</span>
+          <h3>Actividad de las ultimas horas</h3>
+        </div>
+        <ul class="activity-list">
+          <li *ngFor="let item of recentLogins">
+            <span class="activity-icon"><i [ngClass]="item.icon"></i></span>
+            <div>
+              <strong>{{ item.title }}</strong>
+              <p>{{ item.description }}</p>
+              <small>{{ item.time }}</small>
+            </div>
+          </li>
+        </ul>
+      </section>
+    </aside>
+  </div>
+</div>

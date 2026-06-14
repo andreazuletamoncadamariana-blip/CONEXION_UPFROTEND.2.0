@@ -1,0 +1,39 @@
+<div class="auth-container">
+  <div class="auth-card">
+    <div class="auth-sidebar">
+      <div class="brand-logo-white">
+        <img src="assets/images/logouni.png" alt="Uniremington Logo" loading="lazy">
+      </div>
+      <h1>Uniremington <span class="highlight-red">Al Parque</span></h1>
+      <p>Panel de Gestión de Proyección Social</p>
+    </div>
+
+    <div class="auth-form-section">
+      <a routerLink="/home" class="back-link">← Volver al inicio</a>
+
+      <h2>Iniciar Sesión</h2>
+      <p class="subtitle">Ingresa tus credenciales de acceso</p>
+
+      <form (ngSubmit)="onLogin($event)">
+        <div class="input-group">
+          <input type="text" placeholder="Usuario o Correo" name="user" [(ngModel)]="loginData.user" required>
+        </div>
+        <div class="input-group">
+          <input type="password" placeholder="Contraseña" name="pass" [(ngModel)]="loginData.pass" required>
+        </div>
+
+        <div style="text-align: right; margin-bottom: 30px;">
+          <a routerLink="/forgot-password" style="color: #64748b; text-decoration: none; font-size: 0.9rem;">¿Olvidaste tu contraseña?</a>
+        </div>
+
+        <button type="submit" class="btn-primary-auth">Ingresar al Sistema</button>
+
+        <div class="register-option">
+          <p>¿No tienes cuenta? <a routerLink="/registro">Regístrate aquí</a></p>
+        </div>
+      </form>
+
+      <p class="footer-text">Corporación Universitaria Remington © 2026</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,39 @@
+<section class="service-page">
+  <div class="section-header-modern">
+    <span class="badge-premium">Servicio 3D • Consultoría Contable</span>
+    <h2>
+      <i class="fa-solid fa-calculator"></i> {{ title }}
+    </h2>
+    <div class="divider-gradient"></div>
+  </div>
+
+  <div class="cards-grid">
+    <article class="service-card" *ngFor="let s of servicios">
+      <div class="card-3d">
+        <div class="card-icon">
+          <i [class]="s.icon"></i>
+        </div>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.text }}</p>
+        <div class="card-motion" aria-hidden="true"></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="media-row">
+    <div class="media-3d">
+      <img src="assets/images/consultoriocontable.jpg.jpg" alt="Consultoría contable" loading="lazy" />
+      <div class="float-overlay">
+        <p>Movimiento con perspectiva</p>
+      </div>
+    </div>
+
+    <div class="media-3d">
+      <img src="assets/images/contable.jpg.jpg" alt="Contabilidad" loading="lazy" />
+      <div class="float-overlay">
+        <p>Datos en enfoque 3D</p>
+      </div>
+    </div>
+  </div>
+</section>
+

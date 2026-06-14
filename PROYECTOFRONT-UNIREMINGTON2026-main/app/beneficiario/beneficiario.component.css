@@ -1,0 +1,109 @@
+.beneficiario-container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  .header {
+    margin-bottom: 2rem;
+    h1 { color: #004587; margin: 0; }
+    p { color: #64748b; margin: 5px 0 0; }
+  }
+
+  .alert {
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    font-weight: 600;
+    &.success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    &.error { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+  }
+
+  .search-box {
+    display: flex;
+    gap: 10px;
+    background: #f1f5f9;
+    padding: 1rem;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+    align-items: center;
+    input {
+      flex: 1;
+      padding: 0.8rem;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+  }
+
+  .form-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    margin-bottom: 3rem;
+    border-top: 5px solid #e30613;
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin: 1.5rem 0;
+
+      input, select {
+        padding: 0.9rem;
+        border: 1px solid #e2e8f0;
+        border-radius: 10px;
+        font-size: 0.95rem;
+        &:focus { outline: none; border-color: #004587; box-shadow: 0 0 0 3px rgba(0,69,135,0.1); }
+      }
+    }
+  }
+
+  .form-buttons {
+    display: flex;
+    gap: 1rem;
+    button {
+      padding: 1rem 2rem;
+      border-radius: 10px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
+      &.btn-save { background: #004587; color: white; &:hover { background: #002d58; } }
+      &.btn-cancel { background: #f1f5f9; color: #475569; &:hover { background: #e2e8f0; } }
+    }
+  }
+
+  .table-container {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      th { background: #f8fafc; padding: 1.2rem; text-align: left; color: #64748b; font-size: 0.85rem; text-transform: uppercase; }
+      td { padding: 1.2rem; border-top: 1px solid #f1f5f9; }
+      tr:hover { background: #f8fafc; }
+    }
+
+    .badge { background: #e0f2fe; color: #0369a1; padding: 4px 12px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; }
+
+    .action-btns {
+      display: flex;
+      gap: 8px;
+      button {
+        width: 35px;
+        height: 35px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        &.edit { background: #f1f5f9; color: #004587; }
+        &.delete { background: #fee2e2; color: #e30613; }
+        &:hover { opacity: 0.8; transform: translateY(-2px); }
+      }
+    }
+  }
+}

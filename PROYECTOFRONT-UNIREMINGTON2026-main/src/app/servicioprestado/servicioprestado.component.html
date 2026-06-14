@@ -1,0 +1,120 @@
+<div class="services-page">
+  <header class="services-hero">
+    <span class="eyebrow">Gestion Institucional</span>
+    <h1>Servicios Prestados</h1>
+    <p>Registra la labor institucional con impacto social en el territorio.</p>
+  </header>
+
+  <section class="assistant-card">
+    <div class="assistant-header">
+      <div class="assistant-avatar">
+        <i class="fa-solid fa-robot"></i>
+      </div>
+      <div>
+        <span class="eyebrow">Asistente virtual IA</span>
+        <h2>Consulta sobre servicios prestados</h2>
+      </div>
+    </div>
+
+    <div class="quick-questions">
+      <button type="button" *ngFor="let pregunta of preguntasRapidas" (click)="consultarIA(pregunta)">
+        {{ pregunta }}
+      </button>
+    </div>
+
+    <div class="chat-window" aria-live="polite">
+      <div class="chat-message" *ngFor="let message of chatMessages" [class.user-message]="message.role === 'user'">
+        <span>{{ message.role === 'user' ? 'Tu' : 'IA' }}</span>
+        <p>{{ message.text }}</p>
+      </div>
+      <div class="chat-message thinking" *ngIf="isThinking">
+        <span>IA</span>
+        <p>Estoy revisando tu pregunta...</p>
+      </div>
+    </div>
+
+    <form class="assistant-input" (ngSubmit)="consultarIA()">
+      <input
+        type="text"
+        name="preguntaIA"
+        [(ngModel)]="preguntaIA"
+        placeholder="Escribe tu pregunta sobre el registro de servicios"
+      >
+      <button type="submit">
+        <i class="fa-solid fa-paper-plane"></i> Preguntar
+      </button>
+    </form>
+  </section>
+
+  <div class="form-card">
+    <form [formGroup]="form" class="form-grid" (ngSubmit)="guardar()">
+
+      <label>
+        Facultad
+        <select formControlName="facultad">
+          <option value="" disabled>Seleccione...</option>
+          <option *ngFor="let facultad of facultades" [value]="facultad">{{ facultad }}</option>
+        </select>
+      </label>
+
+      <label>
+        Servicio
+        <input formControlName="servicio" placeholder="Nombre del servicio">
+      </label>
+
+      <label>
+        Beneficiario
+        <input formControlName="beneficiario" placeholder="Nombre completo">
+      </label>
+
+      <label>
+        Documento
+        <input formControlName="documento" placeholder="Numero de identidad">
+      </label>
+
+      <label>
+        Departamento
+        <input formControlName="departamento" placeholder="Ej: Antioquia">
+      </label>
+
+      <label>
+        Municipio
+        <input formControlName="municipio" placeholder="Ej: Medellin">
+      </label>
+
+      <label>
+        Vereda
+        <input formControlName="vereda" placeholder="Ej: La Loma">
+      </label>
+
+      <label>
+        Barrio
+        <input formControlName="barrio" placeholder="Ej: Poblado">
+      </label>
+
+      <label>
+        Contacto
+        <input formControlName="contacto" placeholder="Telefono o email">
+      </label>
+
+      <label>
+        Fecha
+        <input type="date" formControlName="fecha">
+      </label>
+
+      <div class="timer-panel">
+        <span>Tiempo de atencion</span>
+        <strong>{{ form.get('tiempo_atencion')?.value || '00:00' }}</strong>
+        <div>
+          <button type="button" (click)="iniciarCronometro()">Iniciar</button>
+          <button type="button" (click)="finalizarCronometro()">Finalizar</button>
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Guardar Registro</button>
+      </div>
+
+    </form>
+  </div>
+</div>

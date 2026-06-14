@@ -1,0 +1,152 @@
+<section class="services-page">
+  <header class="services-hero">
+    <div>
+      <span class="eyebrow">Registro operativo</span>
+      <h1>Servicios de Uniremington al Parque</h1>
+      <p>Ingresa atenciones para los 7 servicios ofrecidos por la universidad.</p>
+    </div>
+  </header>
+
+  <section class="summary-grid">
+    <div class="summary-card">
+      <span>Total registros</span>
+      <strong>{{ totalAtenciones }}</strong>
+    </div>
+    <div class="summary-card">
+      <span>Completados</span>
+      <strong>{{ completados }}</strong>
+    </div>
+    <div class="summary-card">
+      <span>En seguimiento</span>
+      <strong>{{ pendientes }}</strong>
+    </div>
+  </section>
+
+  <div class="alerts">
+    @if (mensaje) {
+      <p class="success">{{ mensaje }}</p>
+    }
+    @if (error) {
+      <p class="error">{{ error }}</p>
+    }
+  </div>
+
+  <section class="form-card">
+    <div class="section-heading">
+      <h2>{{ editandoId !== null ? 'Editar servicio' : 'Nuevo registro de servicio' }}</h2>
+      <p>Selecciona el servicio, registra el beneficiario y deja observaciones si aplica.</p>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="guardar()" class="form-grid">
+      <label>
+        Servicio
+        <select formControlName="servicio">
+          <option value="">Selecciona un servicio</option>
+          @for (servicio of servicios; track servicio.nombre) {
+            <option [value]="servicio.nombre">{{ servicio.nombre }} - {{ servicio.facultad }}</option>
+          }
+        </select>
+      </label>
+
+      <label>
+        Beneficiario
+        <input type="text" formControlName="beneficiario" placeholder="Nombre completo" />
+      </label>
+
+      <label>
+        Documento
+        <input type="text" formControlName="documento" placeholder="Cedula o identificacion" />
+      </label>
+
+      <label>
+        Municipio
+        <input type="text" formControlName="municipio" placeholder="Municipio atendido" />
+      </label>
+
+      <label>
+        Fecha
+        <input type="date" formControlName="fecha" />
+      </label>
+
+      <label>
+        Responsable
+        <input type="text" formControlName="responsable" placeholder="Docente o equipo responsable" />
+      </label>
+
+      <label>
+        Estado
+        <select formControlName="estado">
+          @for (estado of estados; track estado) {
+            <option [value]="estado">{{ estado }}</option>
+          }
+        </select>
+      </label>
+
+      <label class="full-width">
+        Observaciones
+        <textarea formControlName="observaciones" rows="3" placeholder="Describe la atencion, resultado o seguimiento"></textarea>
+      </label>
+
+      <div class="form-actions">
+        <button type="submit">
+          {{ editandoId !== null ? 'Actualizar servicio' : 'Guardar servicio' }}
+        </button>
+        @if (editandoId !== null) {
+          <button type="button" class="secondary" (click)="cancelarEdicion()">Cancelar</button>
+        }
+      </div>
+    </form>
+  </section>
+
+  <section class="services-list">
+    <div class="section-heading">
+      <h2>Registros ingresados</h2>
+      <p>Consulta, edita o elimina los servicios registrados.</p>
+    </div>
+
+    @if (registros.length === 0) {
+      <p class="empty">Aun no hay servicios registrados.</p>
+    }
+
+    @if (registros.length > 0) {
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Servicio</th>
+              <th>Facultad</th>
+              <th>Beneficiario</th>
+              <th>Municipio</th>
+              <th>Fecha</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (registro of registros; track registro.id) {
+              <tr>
+                <td><strong>{{ registro.servicio }}</strong></td>
+                <td>{{ registro.facultad }}</td>
+                <td>
+                  {{ registro.beneficiario }}
+                  <small>{{ registro.documento }}</small>
+                </td>
+                <td>{{ registro.municipio }}</td>
+                <td>{{ registro.fecha | date:'dd/MM/yyyy' }}</td>
+                <td>
+                  <span class="estado" [ngClass]="getEstadoClass(registro.estado)">
+                    {{ registro.estado }}
+                  </span>
+                </td>
+                <td class="actions">
+                  <button type="button" class="edit" (click)="editar(registro)">Editar</button>
+                  <button type="button" class="delete" (click)="eliminar(registro.id!)">Eliminar</button>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    }
+  </section>
+</section>

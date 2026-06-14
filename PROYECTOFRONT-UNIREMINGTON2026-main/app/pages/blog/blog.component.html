@@ -1,0 +1,60 @@
+<section class="blog-page">
+  <div class="blog-hero">
+    <div class="hero-copy">
+      <span class="section-kicker">Comunicaciones Uniremington</span>
+      <h1>Blog de noticias y vida universitaria</h1>
+      <p>
+        Informacion relevante para estudiantes, eventos academicos,
+        convocatorias y novedades que fortalecen la vida universitaria.
+      </p>
+    </div>
+
+    <article class="featured-post">
+      <img [src]="featuredPost.image" [alt]="featuredPost.imageAlt" loading="lazy">
+      <div class="featured-content">
+        <span class="post-category">{{ featuredPost.category }}</span>
+        <h2>{{ featuredPost.title }}</h2>
+        <p>{{ featuredPost.excerpt }}</p>
+        <div class="post-meta">
+          <span><i class="fa-solid fa-calendar-days"></i>{{ featuredPost.date }}</span>
+          <span><i class="fa-solid fa-user-pen"></i>{{ featuredPost.author }}</span>
+        </div>
+      </div>
+    </article>
+  </div>
+
+  <div class="blog-toolbar" aria-label="Filtros del blog">
+    <button
+      *ngFor="let category of categories"
+      type="button"
+      [class.active]="selectedCategory === category"
+      (click)="selectCategory(category)"
+    >
+      {{ category }}
+    </button>
+  </div>
+
+  <div class="content-grid">
+    <main class="post-list">
+      <article *ngFor="let post of filteredPosts" class="post-card">
+        <img [src]="post.image" [alt]="post.imageAlt" loading="lazy">
+        <div class="post-body">
+          <div class="post-head">
+            <span class="post-category">{{ post.category }}</span>
+            <span class="post-date">{{ post.date }}</span>
+          </div>
+          <h3>{{ post.title }}</h3>
+          <p>{{ post.excerpt }}</p>
+          <button type="button" class="read-more">
+            Leer mas <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </article>
+    </main>
+
+    <aside class="student-panel" aria-label="Recursos para estudiantes">
+      <h2>Recursos para estudiantes</h2>
+      <p>Próximamente más recursos para la comunidad universitaria.</p>
+    </aside>
+  </div>
+</section>

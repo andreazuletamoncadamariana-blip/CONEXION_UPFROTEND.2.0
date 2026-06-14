@@ -1,0 +1,40 @@
+<section class="game-view-container page-shell">
+  <div class="game-interface-top">
+    <div class="stat-box timer">
+      <small>TIEMPO</small>
+      <strong id="timer">00:00</strong>
+    </div>
+
+    <div class="game-title">
+      <i class="fa-solid fa-rocket"></i>
+      <div>
+        <span>REMI SPACE</span>
+        <strong>ADVENTURE</strong>
+      </div>
+    </div>
+
+    <div class="stat-box score">
+      <small>PUNTUACIÓN</small>
+      <strong id="score">0000</strong>
+    </div>
+  </div>
+
+  <div class="canvas-viewport">
+    <canvas id="gameCanvas"></canvas>
+
+    <div id="overlay" class="game-state-overlay">
+      <div class="overlay-card">
+        <div class="robot-icon"><i class="fa-solid fa-robot"></i></div>
+        <h2 id="status-title">¿Listo para la misión?</h2>
+        <p id="status-desc">Protege la universidad. La velocidad aumenta con el tiempo.</p>
+
+        <div class="controls-guide">
+          <span><kbd>←</kbd> <kbd>→</kbd> Mover</span>
+          <span><kbd>Espacio</kbd> Disparar</span>
+        </div>
+
+        <button (click)="startGame()" class="btn-action-game">INICIAR SECUENCIA</button>
+      </div>
+    </div>
+  </div>
+</section>

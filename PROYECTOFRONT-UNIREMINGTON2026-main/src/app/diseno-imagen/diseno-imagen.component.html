@@ -1,0 +1,39 @@
+<section class="service-page">
+  <div class="section-header-modern">
+    <span class="badge-premium">Servicio 3D • Diseño</span>
+    <h2>
+      <i class="fa-solid fa-palette"></i> {{ title }}
+    </h2>
+    <div class="divider-gradient"></div>
+  </div>
+
+  <div class="cards-grid">
+    <article class="service-card" *ngFor="let c of cards">
+      <div class="card-3d">
+        <div class="card-icon">
+          <i [class]="c.icon"></i>
+        </div>
+        <h3>{{ c.title }}</h3>
+        <p>{{ c.text }}</p>
+        <div class="card-motion" aria-hidden="true"></div>
+      </div>
+    </article>
+  </div>
+
+  <div class="media-row">
+    <div class="media-3d">
+      <img src="assets/images/dise%C3%B1o.jpg.jpg" alt="Imagen diseño" loading="lazy" />
+      <div class="float-overlay">
+        <p>Movimiento + perspectiva</p>
+      </div>
+    </div>
+
+    <div class="media-3d">
+      <img src="assets/images/tallerdedise%C3%B1o.jpg.jpg" alt="Taller de diseño" loading="lazy" />
+      <div class="float-overlay">
+        <p>Enfoque comunicativo</p>
+      </div>
+    </div>
+  </div>
+</section>
+

@@ -1,0 +1,26 @@
+<div class="donacion-container">
+  <button (click)="mostrarFormulario = !mostrarFormulario" class="btn-donar">
+    {{ mostrarFormulario ? 'Cancelar' : '❤️ Quiero Donar' }}
+  </button>
+
+  <div *ngIf="mostrarFormulario" class="form-overlay">
+    <div class="form-card">
+      <h3>Registrar Donación</h3>
+      <form (ngSubmit)="enviarDonacion()">
+        <input type="text" [(ngModel)]="donacion.donante" name="donante" placeholder="Nombre completo" required>
+        <input type="email" [(ngModel)]="donacion.correo" name="correo" placeholder="Tu correo electrónico">
+        <input type="number" [(ngModel)]="donacion.monto" name="monto" placeholder="Monto a donar" required>
+
+        <select [(ngModel)]="donacion.metodoPago" name="metodoPago">
+          <option value="Transferencia">Transferencia Bancaria</option>
+          <option value="Efectivo">Efectivo / Punto físico</option>
+          <option value="Tarjeta">Tarjeta de Crédito</option>
+        </select>
+
+        <textarea [(ngModel)]="donacion.comentario" name="comentario" placeholder="Algún mensaje (opcional)"></textarea>
+
+        <button type="submit" class="btn-confirmar">Confirmar y Enviar</button>
+      </form>
+    </div>
+  </div>
+</div>

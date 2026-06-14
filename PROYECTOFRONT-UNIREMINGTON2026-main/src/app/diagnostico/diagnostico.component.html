@@ -1,0 +1,86 @@
+<div class="container mt-4">
+  <h2>Diagnóstico Territorial</h2>
+
+  <!-- Mensajes de Feedback -->
+  <div *ngIf="successMessage" class="alert alert-success">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger">{{ errorMessage }}</div>
+
+  <!-- Formulario -->
+  <div class="card p-4 shadow-sm mb-4">
+    <form [formGroup]="diagnosticoForm" (ngSubmit)="guardarDiagnostico()">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Municipio</label>
+          <input type="text" formControlName="municipio" class="form-control" placeholder="Ej: Medellín">
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="form-label">Clasificación</label>
+          <select formControlName="clasificacion" class="form-select">
+            <option value="">Seleccione...</option>
+            <option value="Social">Social</option>
+            <option value="Infraestructura">Infraestructura</option>
+            <option value="Salud">Salud</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Descripción de la Problemática</label>
+        <textarea formControlName="descripcionProblematica" class="form-control" rows="3"></textarea>
+        <small class="text-danger" *ngIf="diagnosticoForm.get('descripcionProblematica')?.invalid && diagnosticoForm.get('descripcionProblematica')?.touched">
+          La descripción es obligatoria (mínimo 10 caracteres).
+        </small>
+      </div>
+
+      <div class="row">
+        <div class="col-md-4 mb-3">
+          <label class="form-label">Prioridad</label>
+          <select formControlName="prioridad" class="form-select">
+            <option value="">Seleccione...</option>
+            <option value="Alta">Alta</option>
+            <option value="Media">Media</option>
+            <option value="Baja">Baja</option>
+          </select>
+        </div>
+        <div class="col-md-8 d-flex align-items-end mb-3">
+          <button type="submit" class="btn btn-primary w-100" [disabled]="diagnosticoForm.invalid || loading">
+            {{ loading ? 'Guardando...' : 'Registrar Diagnóstico' }}
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <!-- Listado -->
+  <div class="table-responsive">
+    <table class="table table-hover border">
+      <thead class="table-light">
+        <tr>
+          <th>Municipio</th>
+          <th>Clasificación</th>
+          <th>Prioridad</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listaDiagnosticos">
+          <td>{{ item.municipio }}</td>
+          <td>{{ item.clasificacion }}</td>
+          <td>
+            <span class="badge" [ngClass]="{
+              'bg-danger': item.prioridad === 'Alta',
+              'bg-warning': item.prioridad === 'Media',
+              'bg-info': item.prioridad === 'Baja'
+            }">{{ item.prioridad }}</span>
+          </td>
+          <td>
+            <button class="btn btn-sm btn-outline-danger" (click)="eliminar(item.id)">Eliminar</button>
+          </td>
+        </tr>
+        <tr *ngIf="listaDiagnosticos.length === 0 && !loading">
+          <td colspan="4" class="text-center">No hay registros disponibles.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

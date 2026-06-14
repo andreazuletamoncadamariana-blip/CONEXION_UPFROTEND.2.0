@@ -1,0 +1,87 @@
+<section class="beneficiario-container">
+  <div class="header">
+    <h1>Gestión de Beneficiarios</h1>
+    <p>Conexión activa: Spring Boot + XAMPP/MySQL</p>
+  </div>
+
+  <div class="alerts" *ngIf="mensaje || error">
+    <div class="alert success" *ngIf="mensaje">{{ mensaje }}</div>
+    <div class="alert error" *ngIf="error">{{ error }}</div>
+  </div>
+
+  <div class="search-section">
+    <div class="search-box">
+      <i class="fas fa-search"></i>
+      <input type="text" [formControl]="filtroDocumento" placeholder="Buscar por documento existente..." />
+      <button (click)="buscarPorDocumento()" class="btn-primary">Buscar</button>
+      <button (click)="limpiarBusqueda()" class="btn-secondary">Limpiar</button>
+    </div>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="guardar()" class="form-card">
+    <h3>{{ editandoId ? 'Editar Registro' : 'Nuevo Registro' }}</h3>
+    <div class="form-grid">
+      <input type="text" formControlName="nombre" placeholder="Nombre completo" />
+      <input type="email" formControlName="correo" placeholder="Correo electrónico" />
+      <input type="text" formControlName="documento" placeholder="Número de Documento" />
+      <input type="number" formControlName="edad" placeholder="Edad" />
+
+      <select formControlName="genero">
+        <option value="" disabled selected>Género</option>
+        <option *ngFor="let g of generos" [value]="g">{{ g }}</option>
+      </select>
+
+      <input type="text" formControlName="telefono" placeholder="Teléfono" />
+      <input type="text" formControlName="municipio" placeholder="Municipio" />
+      <input type="text" formControlName="barrio" placeholder="Barrio / Vereda" />
+
+      <select formControlName="poblacion">
+        <option value="" disabled selected>Tipo de Población</option>
+        <option *ngFor="let t of tiposPoblacion" [value]="t">{{ t }}</option>
+      </select>
+
+      <input type="text" formControlName="servicio" placeholder="Servicio solicitado" />
+    </div>
+
+    <div class="form-buttons">
+      <button type="submit" class="btn-save">
+        {{ editandoId ? 'Guardar Cambios' : 'Registrar Beneficiario' }}
+      </button>
+      <button type="button" (click)="cancelarEdicion()" class="btn-cancel">
+        {{ editandoId ? 'Cancelar' : 'Limpiar Campos' }}
+      </button>
+    </div>
+  </form>
+
+  <div class="table-container">
+    <div class="loading-overlay" *ngIf="cargando">Cargando datos...</div>
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nombre</th>
+          <th>Documento</th>
+          <th>Municipio</th>
+          <th>Servicio</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let b of beneficiarios">
+          <td>{{ b.id }}</td>
+          <td><strong>{{ b.nombre }}</strong></td>
+          <td>{{ b.documento }}</td>
+          <td>{{ b.municipio }}</td>
+          <td><span class="badge">{{ b.servicio }}</span></td>
+          <td class="action-btns">
+            <button (click)="iniciarEdicion(b)" class="edit"><i class="fas fa-edit"></i></button>
+            <button (click)="eliminar(b.id)" class="delete"><i class="fas fa-trash"></i></button>
+          </td>
+        </tr>
+        <tr *ngIf="beneficiarios.length === 0 && !cargando">
+          <td colspan="6" class="no-data">No se encontraron registros en la base de datos</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

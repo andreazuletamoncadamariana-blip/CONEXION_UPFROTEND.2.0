@@ -1,0 +1,118 @@
+<section class="page-container">
+  <div class="header-section">
+    <h2><i class="fas fa-paw"></i> Bienestar Animal</h2>
+    <p class="subtitle">Odontología, desparasitación y vitaminización equina / Veterinaria mascotas</p>
+  </div>
+
+  <div class="card-form">
+    <form (ngSubmit)="guardar()" #animalForm="ngForm">
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="beneficiario">ID del Propietario / Beneficiario</label>
+          <input
+            type="number"
+            id="beneficiario"
+            name="beneficiarioId"
+            [(ngModel)]="nuevaAtencion.beneficiarioId"
+            required>
+        </div>
+
+        <div class="form-group">
+          <label for="tipoServicio">Tipo de Atención</label>
+          <select id="tipoServicio" name="tipoServicio" [(ngModel)]="nuevaAtencion.tipoServicio" required>
+            <option value="" disabled selected>Seleccione una opción</option>
+            <option value="Odontología Equina">Odontología Equina</option>
+            <option value="Desparasitación Equina">Desparasitación Equina</option>
+            <option value="Vitaminización Equina">Vitaminización Equina</option>
+            <option value="Veterinaria Canina/Felina">Consulta Veterinaria (Perros/Gatos)</option>
+            <option value="Corte de Uñas">Corte de Uñas</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="facultad">Facultad Responsable</label>
+          <input
+            type="text"
+            id="facultad"
+            name="facultadResponsable"
+            [(ngModel)]="nuevaAtencion.facultadResponsable">
+        </div>
+
+        <div class="form-group">
+          <label for="tiempo">Tiempo de Atención</label>
+          <input
+            type="text"
+            id="tiempo"
+            name="tiempoAtencion"
+            [(ngModel)]="nuevaAtencion.tiempoAtencion"
+            placeholder="Ej: 30 min">
+        </div>
+      </div>
+
+      <div class="form-group full-width">
+        <label for="descripcion">Descripción del Procedimiento / Hallazgos</label>
+        <textarea
+          id="descripcion"
+          name="descripcionAtencion"
+          [(ngModel)]="nuevaAtencion.descripcionAtencion"
+          rows="3"
+          placeholder="Detalle el estado del animal y el tratamiento realizado..."></textarea>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="resultado">Resultado / Diagnóstico</label>
+          <input type="text" id="resultado" name="resultado" [(ngModel)]="nuevaAtencion.resultado" placeholder="Ej: Evolución satisfactoria">
+        </div>
+        <div class="form-group">
+          <label for="evidencias">Link de Registro Fotográfico (URL)</label>
+          <input type="text" id="evidencias" name="evidenciasUrl" [(ngModel)]="nuevaAtencion.evidenciasUrl" placeholder="Link a la evidencia">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save" [disabled]="!animalForm.valid">
+          <i class="fas fa-save"></i> Registrar Atención Animal
+        </button>
+        <button type="button" class="btn-clear" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+    </form>
+  </div>
+
+  <div class="table-section">
+    <h3>Historial de Bienestar Animal</h3>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Beneficiario</th>
+            <th>Servicio</th>
+            <th>Resultado</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listaAtenciones.length === 0) {
+            <tr>
+              <td colspan="5" class="empty-msg">No hay atenciones veterinarias registradas</td>
+            </tr>
+          } @else {
+            @for (item of listaAtenciones; track item.id) {
+              <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.beneficiarioId }}</td>
+                <td><span class="badge-paw">{{ item.tipoServicio }}</span></td>
+                <td>{{ item.resultado }}</td>
+                <td>
+                  <button class="btn-icon delete" (click)="eliminar(item.id!)"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

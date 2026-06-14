@@ -1,0 +1,124 @@
+<section class="page-container">
+  <div class="header-section">
+    <h2><i class="fas fa-briefcase"></i> Asesoría Empresarial</h2>
+    <p class="subtitle">Consultoría contable, administrativa y diseño de imagen corporativa</p>
+  </div>
+
+  <div class="card-form">
+    <form (ngSubmit)="guardar()" #empresaForm="ngForm">
+      <div class="form-grid">
+
+        <!-- Selección de Beneficiario -->
+        <div class="form-group">
+          <label for="beneficiario">ID del Emprendedor / Beneficiario</label>
+          <input
+            type="number"
+            id="beneficiario"
+            name="beneficiarioId"
+            [(ngModel)]="nuevaAsesoria.beneficiarioId"
+            placeholder="Ingrese el ID"
+            required>
+        </div>
+
+        <!-- Tipo de Servicio Empresarial -->
+        <div class="form-group">
+          <label for="tipoServicio">Tipo de Consultoría</label>
+          <select id="tipoServicio" name="tipoServicio" [(ngModel)]="nuevaAsesoria.tipoServicio" required>
+            <option value="" disabled selected>Seleccione un área</option>
+            <option value="Consultorio Contable">Consultorio Contable</option>
+            <option value="Diseño de Imagen Corporativa">Diseño de Imagen Corporativa</option>
+            <option value="Asesoría Administrativa">Asesoría Administrativa</option>
+            <option value="Plan de Negocios">Plan de Negocios</option>
+          </select>
+        </div>
+
+        <!-- Facultad Responsable -->
+        <div class="form-group">
+          <label for="facultad">Facultad Responsable</label>
+          <input
+            type="text"
+            id="facultad"
+            name="facultadResponsable"
+            [(ngModel)]="nuevaAsesoria.facultadResponsable">
+        </div>
+
+        <!-- Tiempo de Sesión -->
+        <div class="form-group">
+          <label for="tiempo">Duración de la Sesión</label>
+          <input
+            type="text"
+            id="tiempo"
+            name="tiempoAtencion"
+            [(ngModel)]="nuevaAsesoria.tiempoAtencion"
+            placeholder="Ej: 2 horas">
+        </div>
+      </div>
+
+      <!-- Detalles de la Asesoría -->
+      <div class="form-group full-width">
+        <label for="descripcion">Descripción de la Actividad Realizada</label>
+        <textarea
+          id="descripcion"
+          name="descripcionAtencion"
+          [(ngModel)]="nuevaAsesoria.descripcionAtencion"
+          rows="3"
+          placeholder="Describa los avances contables o propuestas de diseño..."></textarea>
+      </div>
+
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="resultado">Entregable o Resultado</label>
+          <input type="text" id="resultado" name="resultado" [(ngModel)]="nuevaAsesoria.resultado" placeholder="Ej: Manual de marca / Balance general">
+        </div>
+        <div class="form-group">
+          <label for="evidencias">Carpeta de Archivos (URL)</label>
+          <input type="text" id="evidencias" name="evidenciasUrl" [(ngModel)]="nuevaAsesoria.evidenciasUrl" placeholder="Link a logos o documentos">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save" [disabled]="!empresaForm.valid">
+          <i class="fas fa-chart-line"></i> Guardar Asesoría
+        </button>
+        <button type="button" class="btn-clear" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabla de Registros -->
+  <div class="table-section">
+    <h3>Historial de Gestión Empresarial</h3>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Beneficiario</th>
+            <th>Servicio</th>
+            <th>Entregable</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listaAsesorias.length === 0) {
+            <tr>
+              <td colspan="5" class="empty-msg">No hay asesorías registradas aún</td>
+            </tr>
+          } @else {
+            @for (item of listaAsesorias; track item.id) {
+              <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.beneficiarioId }}</td>
+                <td><span class="badge-business">{{ item.tipoServicio }}</span></td>
+                <td>{{ item.resultado }}</td>
+                <td>
+                  <button class="btn-icon delete" (click)="eliminar(item.id!)"><i class="fas fa-trash-alt"></i></button>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,52 @@
+<div class="blog-main-container">
+  <div class="section-header-modern">
+    <div class="header-content">
+      <span class="badge-premium">Actualidad Universitaria</span>
+      <h2>Noticias y Eventos <i class="fa-solid fa-newspaper"></i></h2>
+      <p>Descubre el impacto de Uniremington en la sociedad y la academia.</p>
+    </div>
+
+    <div class="blog-categories">
+      <button *ngFor="let cat of categories"
+              [class.active]="selectedCategory === cat"
+              (click)="selectCategory(cat)"
+              class="category-pill">
+        {{ cat }}
+      </button>
+    </div>
+  </div>
+
+  <div class="posts-grid">
+    <div *ngFor="let post of filteredPosts"
+         class="flip-card"
+         [class.is-flipped]="post.isFlipped">
+
+      <div class="flip-card-inner">
+        <div class="flip-card-front" [style.background-image]="'linear-gradient(rgba(0,0,0,0.3), rgba(0,51,102,0.85)), url(' + post.image + ')'">
+          <div class="card-front-content">
+            <span class="post-category-tag">{{ post.category }}</span>
+            <h3>{{ post.title }}</h3>
+            <button class="btn-flip-trigger" (click)="toggleFlip(post)">
+              Leer más <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <div class="flip-card-back">
+          <div class="card-back-header">
+            <span class="post-category-tag light">{{ post.category }}</span>
+            <h4>{{ post.title }}</h4>
+          </div>
+          <div class="card-back-body">
+            <p>{{ post.content }}</p>
+          </div>
+          <div class="card-back-footer">
+            <button class="btn-flip-back" (click)="toggleFlip(post)">
+              <i class="fa-solid fa-arrow-left"></i> Volver
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

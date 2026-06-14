@@ -1,0 +1,46 @@
+<div class="form-wrapper panel-wrapper">
+  <div class="panel-header-modern">
+    <div>
+      <span class="eyebrow">Nueva actividad</span>
+      <h2>Agendar jornada de impacto social</h2>
+      <p>Registra programaciones de atención en comunidades externas.</p>
+    </div>
+    <button class="btn-close-modern" (click)="cerrar.emit()" title="Cerrar">
+      <i class="fas fa-times"></i>
+    </button>
+  </div>
+
+  <form class="form-card panel-form" (ngSubmit)="guardar()">
+    <div class="grid-form">
+      <div class="form-group">
+        <label for="municipio">Municipio o entidad</label>
+        <input id="municipio" type="text" [(ngModel)]="jornada.municipio" name="municipio" placeholder="Ej: Alcaldía de Támesis" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="responsable">Responsable de contacto</label>
+        <input id="responsable" type="text" [(ngModel)]="jornada.responsable" name="responsable" placeholder="Nombre completo" class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="fecha">Fecha programada</label>
+        <input id="fecha" type="date" [(ngModel)]="jornada.fecha" name="fecha" required class="input-field">
+      </div>
+
+      <div class="form-group">
+        <label for="facultad">Facultad encargada</label>
+        <select id="facultad" [(ngModel)]="jornada.facultad" name="facultad" class="select-field">
+          <option value="" disabled selected>Selecciona una facultad</option>
+          <option value="Derecho">Consultorio Jurídico</option>
+          <option value="Veterinaria">Veterinaria (Unipet)</option>
+          <option value="Salud">Salud y Bienestar</option>
+        </select>
+      </div>
+
+      <div class="actions" style="grid-column: span 2;">
+        <button type="button" class="btn btn-secondary" (click)="cerrar.emit()">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Agendar jornada</button>
+      </div>
+    </div>
+  </form>
+</div>

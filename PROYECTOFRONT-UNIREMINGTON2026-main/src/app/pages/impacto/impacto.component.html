@@ -1,0 +1,226 @@
+<section class="impact-page-container">
+  <!-- Encabezado de la página -->
+  <div class="section-header-modern">
+    <span class="badge-premium">Monteria y Copacabana</span>
+    <h2><i class="fa-solid fa-earth-americas"></i> Proyeccion Social Uniremington Al Parque</h2>
+    <div class="divider-gradient"></div>
+  </div>
+
+  <!-- Estadísticas Principales -->
+  <div class="impact-stats-grid">
+    <div class="stat-card" *ngFor="let stat of impactoStats">
+      <i [class]="'fa-solid ' + stat.icon + ' stat-icon'"></i>
+      <div class="stat-value">
+        {{ formatCounter(stat.currentValue) }}<span class="counter-plus">+</span>
+      </div>
+      <div class="stat-label">{{ stat.label }}</div>
+    </div>
+  </div>
+
+  <!-- Sección de Gráficos -->
+  <div class="charts-section">
+    <!-- Bloque visual: “agables y profesionales” con animación -->
+    <div class="section-title">
+      <h3>
+        <i class="fa-solid fa-bullseye"></i>
+        Análisis Detallado de Impacto
+      </h3>
+      <p>Visualiza el alcance de nuestras jornadas por facultad y servicio</p>
+    </div>
+
+    <div class="impact-actions">
+      <button type="button" class="impact-action" (click)="scrollToGrafico('facultad')">
+        <i class="fa-solid fa-chart-column"></i>
+        <div>
+          <strong>Impacto por Facultad</strong>
+          <span>Atenciones documentadas por las 7 facultades y areas</span>
+        </div>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+
+      <button type="button" class="impact-action" (click)="scrollToGrafico('servicios')">
+        <i class="fa-solid fa-chart-pie"></i>
+        <div>
+          <strong>Distribución de Servicios</strong>
+          <span>Servicios gratuitos documentados</span>
+        </div>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+
+      <button type="button" class="impact-action" (click)="scrollToGrafico('progreso')">
+        <i class="fa-solid fa-chart-line"></i>
+        <div>
+          <strong>Progreso Mensual</strong>
+          <span>Avance acumulado 27 y 28 de septiembre</span>
+        </div>
+        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+      </button>
+    </div>
+
+    <!-- Fila 1: Gráfico de Barras (Impacto por Facultad) -->
+    <div class="chart-container large" id="facultad">
+      <div class="chart-card reveal-up">
+        <div class="chart-header">
+          <h4><i class="fa-solid fa-chart-column"></i> Impacto por Facultad</h4>
+          <p>Atenciones y participacion por las 7 facultades/areas vinculadas en la jornada oficial</p>
+        </div>
+        <div class="chart-wrapper">
+          <div class="professional-bar-chart" aria-label="Grafica de barras de impacto por facultad">
+            <div class="bar-scale">
+              <span>{{ maxFacultyImpact }}</span>
+              <span>{{ maxFacultyImpact / 2 }}</span>
+              <span>0</span>
+            </div>
+            <div class="bar-bars">
+              <div class="bar-column" *ngFor="let item of facultyImpact; let i = index">
+                <div class="bar-value">{{ item.value }}</div>
+                <div class="bar-track">
+                  <div
+                    class="bar-visual"
+                    [style.height.%]="getBarHeight(item.value)"
+                    [style.background]="item.color"
+                    [style.animation-delay.ms]="i * 90"
+                  ></div>
+                </div>
+                <span class="bar-label">{{ item.shortLabel }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Fila 2: Gráfico de Pastel y Línea -->
+    <div class="charts-row">
+      <!-- Gráfico de Pastel (Distribución de Servicios) -->
+      <div class="chart-container medium" id="servicios">
+        <div class="chart-card reveal-up" style="animation-delay: 80ms;">
+          <div class="chart-header">
+            <h4><i class="fa-solid fa-chart-pie"></i> Distribución de Servicios</h4>
+            <p>Servicios gratuitos documentados en Monteria y Copacabana</p>
+          </div>
+          <div class="chart-wrapper">
+            <div class="donut-dashboard" aria-label="Grafica de dona de distribucion de servicios">
+              <div class="donut-chart" [style.background]="donutGradient">
+                <div class="donut-center">
+                  <strong>{{ totalServices }}</strong>
+                  <span>atenciones</span>
+                </div>
+              </div>
+              <div class="donut-legend">
+                <div class="legend-row" *ngFor="let item of serviceDistribution">
+                  <span class="legend-color" [style.background]="item.color"></span>
+                  <div>
+                    <strong>{{ item.label }}</strong>
+                    <small>{{ item.value }} personas - {{ getServicePercentage(item.value) }}%</small>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gráfico de Línea (Progreso) -->
+      <div class="chart-container medium" id="progreso">
+        <div class="chart-card reveal-up" style="animation-delay: 160ms;">
+          <div class="chart-header">
+            <h4><i class="fa-solid fa-chart-line"></i> Progreso Mensual</h4>
+            <p>Avance acumulado de las jornadas del 27 y 28 de septiembre</p>
+          </div>
+          <div class="chart-wrapper">
+            <div class="line-dashboard" aria-label="Grafica lineal de progreso mensual">
+              <svg class="line-chart-svg" viewBox="0 0 520 260" role="img">
+                <g class="grid-lines">
+                  <line x1="40" y1="30" x2="500" y2="30"></line>
+                  <line x1="40" y1="85" x2="500" y2="85"></line>
+                  <line x1="40" y1="140" x2="500" y2="140"></line>
+                  <line x1="40" y1="195" x2="500" y2="195"></line>
+                  <line x1="40" y1="230" x2="500" y2="230"></line>
+                </g>
+                <polyline class="line-personas" [attr.points]="getLinePoints('personas')"></polyline>
+                <polyline class="line-jornadas" [attr.points]="getLinePoints('jornadas')"></polyline>
+                <g *ngFor="let point of monthlyProgress; let i = index">
+                  <circle class="point-personas" [attr.cx]="getPointX(i)" [attr.cy]="getPointY(point.personas, maxMonthlyPeople)" r="5"></circle>
+                  <circle class="point-jornadas" [attr.cx]="getPointX(i)" [attr.cy]="getPointY(point.jornadas, maxMonthlyJornadas)" r="5"></circle>
+                  <text class="month-label" [attr.x]="getPointX(i)" y="252">{{ point.month }}</text>
+                </g>
+              </svg>
+              <div class="line-legend">
+                <span><i class="legend-dot people"></i> Personas beneficiadas</span>
+                <span><i class="legend-dot days"></i> Jornadas realizadas</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- Galería de Proyectos -->
+  <div class="gallery-section">
+    <div class="section-title">
+      <h3>Proyectos en Acción</h3>
+      <p>Conoce las iniciativas que transforman nuestro territorio</p>
+    </div>
+
+    <div class="impact-gallery">
+
+      <!-- 1. Salud Comunitaria -->
+      <div class="gallery-item">
+        <img src="assets/images/saludcomunitaria.jpg.jpg" alt="Brigada Médica" loading="lazy">
+        <div class="item-overlay">
+          <h4>Brigada Integral de Salud</h4>
+          <p>Támesis, Antioquia - Atención primaria y prevención.</p>
+        </div>
+      </div>
+
+      <!-- 2. Bienestar Animal -->
+      <div class="gallery-item">
+        <img src="assets/images/bienestar.jpg.jpg" alt="Bienestar Animal" loading="lazy">
+        <div class="item-overlay">
+          <h4>Atención Veterinaria</h4>
+          <p>Jornada de desparasitación y cuidado en zonas rurales.</p>
+        </div>
+      </div>
+
+      <!-- 3. Consultorio Jurídico (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/eventocomunitario.jpg.webp" alt="Asesoría Legal" loading="lazy">
+        <div class="item-overlay">
+          <h4>Justicia al Barrio</h4>
+          <p>Asesoría legal gratuita para la resolución de conflictos.</p>
+        </div>
+      </div>
+
+      <!-- 4. Medio Ambiente (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/medioambiente.jpg.jpg" alt="Reforestación" loading="lazy">
+        <div class="item-overlay">
+          <h4>Conciencia Verde</h4>
+          <p>Jornada de reforestación y educación ambiental.</p>
+        </div>
+      </div>
+
+      <!-- 5. Apoyo Empresarial (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/empresariales.jpg.jpg" alt="Emprendimiento" loading="lazy">
+        <div class="item-overlay">
+          <h4>Fortalecimiento Pyme</h4>
+          <p>Capacitación técnica para emprendedores locales.</p>
+        </div>
+      </div>
+
+      <!-- 6. Educación y TIC (Nuevo) -->
+      <div class="gallery-item">
+        <img src="assets/images/tallerformalizacióndenegocios.jpg.jpg" alt="Clase de computación" loading="lazy">
+        <div class="item-overlay">
+          <h4>Alfabetización Digital</h4>
+          <p>Inclusión tecnológica para adultos mayores y niños.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

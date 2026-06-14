@@ -1,0 +1,281 @@
+:host {
+  display: block;
+}
+
+.services-page {
+  width: min(100%, 1180px);
+  margin: 0 auto;
+  color: #0f172a;
+}
+
+.services-hero {
+  padding: 28px;
+  border-radius: 18px;
+  background: #003566;
+  color: #ffffff;
+  box-shadow: 0 18px 36px rgba(15, 23, 42, 0.16);
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #fecaca;
+  font-size: 13px;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.services-hero h1 {
+  margin: 0;
+  font-size: 32px;
+  line-height: 1.15;
+}
+
+.services-hero p {
+  margin: 8px 0 0;
+  color: #dbeafe;
+}
+
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 18px 0;
+}
+
+.summary-card,
+.form-card,
+.services-list {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+.summary-card {
+  padding: 18px;
+  border-left: 5px solid #003566;
+}
+
+.summary-card span {
+  display: block;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.summary-card strong {
+  display: block;
+  margin-top: 6px;
+  color: #003566;
+  font-size: 30px;
+}
+
+.alerts {
+  min-height: 34px;
+}
+
+.success,
+.error {
+  padding: 12px 14px;
+  border-radius: 12px;
+  font-weight: 800;
+}
+
+.success {
+  color: #047857;
+  background: #d1fae5;
+}
+
+.error {
+  color: #b91c1c;
+  background: #fee2e2;
+}
+
+.form-card,
+.services-list {
+  padding: 24px;
+  margin-top: 18px;
+}
+
+.section-heading h2 {
+  margin: 0;
+  color: #003566;
+  font-size: 22px;
+}
+
+.section-heading p {
+  margin: 5px 0 0;
+  color: #64748b;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  padding: 12px 14px;
+  color: #0f172a;
+  background: #ffffff;
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #003566;
+  box-shadow: 0 0 0 3px rgba(0, 53, 102, 0.12);
+}
+
+.full-width,
+.form-actions {
+  grid-column: 1 / -1;
+}
+
+.form-actions,
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+button {
+  min-height: 42px;
+  border: none;
+  border-radius: 11px;
+  padding: 0 16px;
+  background: #003566;
+  color: #ffffff;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #64748b;
+}
+
+button.edit {
+  background: #2563eb;
+}
+
+button.delete {
+  background: #dc2626;
+}
+
+.empty {
+  margin: 18px 0 0;
+  padding: 28px;
+  border-radius: 14px;
+  color: #64748b;
+  background: #f8fafc;
+  text-align: center;
+  font-weight: 800;
+}
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  margin-top: 18px;
+}
+
+table {
+  width: 100%;
+  min-width: 900px;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #e2e8f0;
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  color: #003566;
+  background: #f8fafc;
+  font-size: 12px;
+  text-transform: uppercase;
+}
+
+td small {
+  display: block;
+  margin-top: 3px;
+  color: #64748b;
+}
+
+.estado {
+  display: inline-flex;
+  min-width: 96px;
+  justify-content: center;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.estado.completado {
+  background: #d1fae5;
+  color: #047857;
+}
+
+.estado.enProgreso {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.estado.pendiente {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.estado.cancelado {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+@media (max-width: 900px) {
+  .summary-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .services-hero,
+  .form-card,
+  .services-list {
+    padding: 18px;
+    border-radius: 15px;
+  }
+
+  .services-hero h1 {
+    font-size: 25px;
+  }
+
+  .form-actions button {
+    width: 100%;
+  }
+}

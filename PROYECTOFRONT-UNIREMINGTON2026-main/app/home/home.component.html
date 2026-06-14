@@ -1,0 +1,229 @@
+<section class="home-page">
+  <div class="hero-section">
+    <div class="container hero-grid">
+      <div class="hero-copy">
+        <span class="eyebrow">Proyección Social</span>
+        <h1>Uniremington Al Parque</h1>
+        <p class="hero-description">
+          Una iniciativa social que une la academia con el territorio, ofreciendo servicios gratuitos de
+          Medicina Veterinaria, Derecho, Psicología y más a las comunidades.
+        </p>
+
+        <div class="hero-actions">
+          <button type="button" class="btn-primary-action" (click)="verHistorias()">
+            <i class="fa-solid fa-book-open"></i>
+            Ver historias
+          </button>
+          <button type="button" class="btn-secondary-action" (click)="contactarEquipo()">
+            <i class="fa-solid fa-headset"></i>
+            Contactar equipo
+          </button>
+          <button type="button" class="btn-tertiary-action" (click)="accederPlataforma()">
+            <i class="fa-solid fa-right-to-bracket"></i>
+            Acceder
+          </button>
+          <button type="button" class="btn-secondary-action" (click)="verHistorias()">
+            <i class="fa-solid fa-newspaper"></i>
+            Blog de Noticias
+          </button>
+        </div>
+
+        <div class="hero-highlights">
+          <article class="highlight-card">
+            <div class="highlight-icon"><i class="fa-solid fa-location-dot"></i></div>
+            <div>
+              <strong>Montería y Copacabana</strong>
+              <p>Presencia territorial con atención comunitaria.</p>
+            </div>
+          </article>
+
+          <article class="highlight-card">
+            <div class="highlight-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+            <div>
+              <strong>85+ comunidades</strong>
+              <p>Impactadas con acciones sociales y académicas.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-carousel">
+          <div class="carousel-track">
+            <article class="hero-slide" *ngFor="let slide of heroSlides; let i = index" [class.active]="i === currentHeroIndex">
+              <div class="slide-image-frame">
+                <img [src]="slide.image" [alt]="slide.title" loading="lazy" />
+                <div class="slide-overlay">
+                  <span class="slide-eyebrow">{{ slide.eyebrow }}</span>
+                  <h3>{{ slide.title }}</h3>
+                  <p>{{ slide.description }}</p>
+                  <button type="button" class="button button-primary" (click)="verHistorias()">{{ slide.cta }}</button>
+                </div>
+              </div>
+            </article>
+          </div>
+
+          <div class="carousel-controls">
+            <button type="button" aria-label="Anterior" (click)="prevHeroSlide()"><i class="fa-solid fa-chevron-left"></i></button>
+            <button type="button" aria-label="Siguiente" (click)="nextHeroSlide()"><i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+
+          <div class="carousel-dots">
+            <button *ngFor="let _ of heroSlides; let idx = index" type="button" [class.active]="idx === currentHeroIndex" (click)="goToHeroSlide(idx)" [attr.aria-label]="'Ir a slide ' + (idx + 1)"></button>
+          </div>
+        </div>
+
+        <div class="hero-metrics">
+          <div class="metric-card">
+            <span class="metric-value">500+</span>
+            <span class="metric-label">Estudiantes activos</span>
+          </div>
+          <div class="metric-card accent">
+            <span class="metric-value">100+</span>
+            <span class="metric-label">Historias de éxito</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sección 'Sobre el proyecto' removida por solicitud del equipo -->
+
+  <section class="services-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Servicios gratuitos</span>
+        <h2>Atención profesional y clara para cada jornada</h2>
+      </div>
+
+      <div class="services-grid">
+        <article class="service-card" *ngFor="let service of services">
+          <div class="service-icon"><i [ngClass]="service.icon"></i></div>
+          <h3>{{ service.title }}</h3>
+          <p>{{ service.description }}</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="impact-section">
+    <div class="container impact-grid">
+      <div class="impact-copy">
+        <span class="eyebrow">Impacto medible</span>
+        <h2>Resultados claros y coherentes con la comunidad</h2>
+        <p>
+          El proyecto genera datos reales y acciones tangibles, con presencia directa en el territorio.
+        </p>
+      </div>
+
+      <div class="impact-slider">
+        <div class="stat-card" *ngFor="let stat of stats; let i = index" [class.active]="i === currentStatIndex" (click)="currentStatIndex = i">
+          <div class="stat-icon"><i [ngClass]="stat.icon"></i></div>
+          <div class="stat-value">{{ stat.value }}</div>
+          <div class="stat-label">{{ stat.label }}</div>
+        </div>
+      </div>
+
+      <div class="slider-dots">
+        <button *ngFor="let _ of stats; let i = index" (click)="currentStatIndex = i" [class.active]="i === currentStatIndex" [attr.aria-label]="'Ir a estadística ' + (i + 1)"></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="news-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="eyebrow">Actualidad</span>
+        <h2>Noticias y Novedades del Territorio</h2>
+      </div>
+
+      <div class="news-grid">
+        <article class="news-card">
+          <div class="news-image">
+            <img src="assets/images/eventocomunitario.jpg.webp" alt="Noticia" loading="lazy" />
+          </div>
+          <div class="news-body">
+            <h3>Impacto Social en Montería</h3>
+            <p>Se realizó la jornada número 85 con éxito total en servicios jurídicos.</p>
+            <button class="btn-read" (click)="verHistorias()">Leer más <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </article>
+        <article class="news-card">
+          <div class="news-image">
+            <img src="assets/images/jornadaveterinaria.jpg.jpg" alt="Noticia" loading="lazy" />
+          </div>
+          <div class="news-body">
+            <h3>Cuidado Animal en Copacabana</h3>
+            <p>Nuestros estudiantes atendieron a más de 120 especies en la última brigada.</p>
+            <button class="btn-read" (click)="verHistorias()">Leer más <i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="process-section">
+    <div class="container process-grid">
+      <div class="section-header">
+        <span class="eyebrow">Cómo participar</span>
+        <h2>Un proceso claro para solicitar y ejecutar una jornada</h2>
+      </div>
+
+      <div class="process-cards">
+        <article class="process-card">
+          <div class="process-icon"><i class="fa-solid fa-pen-to-square"></i></div>
+          <h3>1. Solicita</h3>
+          <p>Completa tu solicitud con los datos de la comunidad y objetivo.</p>
+        </article>
+
+        <article class="process-card">
+          <div class="process-icon"><i class="fa-solid fa-calendar-days"></i></div>
+          <h3>2. Coordina</h3>
+          <p>Coordinamos la fecha, logística y servicios necesarios.</p>
+        </article>
+
+        <article class="process-card">
+          <div class="process-icon"><i class="fa-solid fa-truck"></i></div>
+          <h3>3. Ejecuta</h3>
+          <p>Llevamos el equipo al Parque para generar un impacto genuino.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="newsletter-section">
+    <div class="container newsletter-panel">
+      <div>
+        <span class="eyebrow">Mantente conectado</span>
+        <h2>Recibe noticias de las próximas jornadas</h2>
+      </div>
+      <div class="subscription-row">
+        <input #emailInput type="email" placeholder="Tu correo electrónico" aria-label="Correo electrónico" />
+        <button type="button" class="btn-subscribe" (click)="onSubscribe(emailInput.value)">Suscribirme</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Virtual assistant: inline SVG + accessible button -->
+  <button class="virtual-assistant" aria-label="Abrir asistente Remi" title="Asistente Remi" (click)="openGlobalRemi()">
+    <svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <linearGradient id="g1" x1="0" x2="1">
+          <stop offset="0%" stop-color="#06b6d4" />
+          <stop offset="100%" stop-color="#0ea5a3" />
+        </linearGradient>
+      </defs>
+      <rect x="4" y="4" width="80" height="80" rx="20" fill="url(#g1)" opacity="0.12" />
+      <circle cx="44" cy="36" r="20" fill="#ffffff" />
+      <rect x="30" y="56" width="28" height="14" rx="6" fill="#ffffff" />
+      <circle cx="36" cy="34" r="3.4" fill="#0f172a" />
+      <circle cx="52" cy="34" r="3.4" fill="#0f172a" />
+      <path d="M36 42 C40 46 48 46 52 42" stroke="#0f172a" stroke-width="2" stroke-linecap="round" fill="none" />
+      <g class="assistant-headset" transform="translate(56, 28)">
+        <rect x="0" y="8" width="18" height="10" rx="5" fill="#0f172a" opacity="0.08" />
+        <rect x="-6" y="2" width="6" height="4" rx="2" fill="#ffffff" opacity="0.7" />
+      </g>
+    </svg>
+    <span class="assistant-badge" aria-hidden="true">Remi</span>
+  </button>
+</section>

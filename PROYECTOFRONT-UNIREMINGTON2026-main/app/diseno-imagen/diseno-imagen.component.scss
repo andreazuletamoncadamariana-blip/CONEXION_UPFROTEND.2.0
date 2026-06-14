@@ -1,0 +1,117 @@
+
+.service-page {
+  padding: 25px;
+}
+
+.service-page .section-header-modern h2 {
+  margin: 0;
+  font-size: 28px;
+}
+
+.cards-grid {
+  margin-top: 25px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+.service-card {
+  perspective: 1000px;
+}
+
+.card-3d {
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 16px;
+  padding: 18px;
+  border: 1px solid rgba(52, 152, 219, 0.25);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.service-card:hover .card-3d {
+  transform: rotateX(10deg) rotateY(-10deg) translateY(-6px);
+}
+
+.card-icon {
+  font-size: 30px;
+  color: #2563eb;
+  margin-bottom: 10px;
+}
+
+.card-3d h3 {
+  margin: 0 0 8px 0;
+  color: #0f172a;
+  font-size: 18px;
+}
+
+.card-3d p {
+  margin: 0;
+  color: #475569;
+  line-height: 1.4;
+}
+
+.card-motion {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(circle at 30% 20%, rgba(59, 130, 246, 0.35), transparent 55%);
+  transform: translateZ(-1px);
+  animation: glowFloat 3.6s ease-in-out infinite;
+}
+
+@keyframes glowFloat {
+  0%, 100% { transform: translateZ(-1px) translateY(0px); opacity: 0.8; }
+  50% { transform: translateZ(-1px) translateY(10px); opacity: 1; }
+}
+
+.media-row {
+  margin-top: 28px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 18px;
+}
+
+.media-3d {
+  position: relative;
+  border-radius: 18px;
+  overflow: hidden;
+  border: 1px solid rgba(148, 163, 184, 0.35);
+  box-shadow: 0 16px 40px rgba(2, 6, 23, 0.12);
+  perspective: 900px;
+}
+
+.media-3d img {
+  width: 100%;
+  height: 320px;
+  object-fit: cover;
+  transform: scale(1.04);
+  transition: transform 0.6s ease;
+}
+
+.media-3d:hover img {
+  transform: scale(1.12) rotate(-1deg) translateY(-6px);
+}
+
+.float-overlay {
+  position: absolute;
+  inset: auto 14px 14px 14px;
+  background: rgba(15, 23, 42, 0.65);
+  color: white;
+  padding: 10px 12px;
+  border-radius: 14px;
+  backdrop-filter: blur(8px);
+  transform: translateZ(20px);
+  animation: labelFloat 2.8s ease-in-out infinite;
+}
+
+@keyframes labelFloat {
+  0%, 100% { transform: translateZ(20px) translateY(0px); }
+  50% { transform: translateZ(20px) translateY(-8px); }
+}
+
+@media (max-width: 768px) {
+  .media-3d img { height: 240px; }
+}
+

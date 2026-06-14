@@ -1,0 +1,72 @@
+<section class="jornada-page">
+  <div class="page-shell">
+    <div class="form-card animate__animated animate__fadeInUp">
+      <div class="form-header">
+        <i class="fas fa-calendar-check" style="color: #003366; font-size: 2.5rem;"></i>
+        <h2>Solicitud de Jornada</h2>
+        <p>Uniremington al Parque - Proyección Social</p>
+      </div>
+
+      <form (submit)="onSubmit($event)" id="jornadaForm">
+        <div class="compact-grid">
+          <div class="form-group">
+            <label>Nombre de la Entidad / Alcaldía</label>
+            <input type="text" #entidad placeholder="Ej: Municipio de Támesis" required>
+          </div>
+          <div class="form-group">
+            <label>Responsable</label>
+            <input type="text" placeholder="Nombre completo" required>
+          </div>
+
+          <div class="form-group">
+            <label>WhatsApp / Celular</label>
+            <input type="tel" placeholder="300 000 0000" required>
+          </div>
+          <div class="form-group">
+            <label>Correo Institucional</label>
+            <input type="email" placeholder="correo@municipio.gov.co" required>
+          </div>
+
+          <div class="form-group">
+            <label>Lugar propuesto</label>
+            <select>
+              <option>Parque Principal</option>
+              <option>Centro de Integración Ciudadana (CIC)</option>
+              <option>Institución Educativa</option>
+              <option>Coliseo Municipal</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Población estimada</label>
+            <input type="number" placeholder="Ej: 200">
+          </div>
+
+          <div class="form-group full-width">
+            <label>Servicios requeridos de nuestras Facultades:</label>
+            <div class="services-selection">
+              <label class="chip"><input type="checkbox"> Veterinaria (Mascotas)</label>
+              <label class="chip"><input type="checkbox"> Consultorio Jurídico</label>
+              <label class="chip"><input type="checkbox"> Consultorio Contable</label>
+              <label class="chip"><input type="checkbox"> Salud (P y P)</label>
+              <label class="chip"><input type="checkbox"> Imagen Corporativa</label>
+              <label class="chip"><input type="checkbox"> Medio Ambiente</label>
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label>Información adicional o Requerimientos técnicos</label>
+            <textarea rows="2" placeholder="¿Cuentan con carpas, sonido o puntos eléctricos?"></textarea>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          ENVIAR SOLICITUD <i class="fas fa-paper-plane"></i>
+        </button>
+
+        <a (click)="goBack()" class="back-link">
+          <i class="fas fa-arrow-left"></i> Volver al inicio
+        </a>
+      </form>
+    </div>
+  </div>
+</section>

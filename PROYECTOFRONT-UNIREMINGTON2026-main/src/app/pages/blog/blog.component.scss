@@ -1,0 +1,215 @@
+/* --- VARIABLES DE COLOR CORPORATIVO --- */
+$navy-dark: #003366;
+$cyan-light: #00AEEF;
+$text-gray: #475569;
+$white: #ffffff;
+
+.blog-main-container {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 60px 20px;
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+/* --- HEADER Y CATEGORÍAS --- */
+.section-header-modern {
+  text-align: center;
+  margin-bottom: 50px;
+
+  .badge-premium {
+    background: rgba($cyan-light, 0.1);
+    color: $navy-dark;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  h2 {
+    font-size: 2.8rem;
+    color: $navy-dark;
+    margin: 15px 0;
+    font-weight: 800;
+
+    i { color: $cyan-light; }
+  }
+
+  p { color: $text-gray; font-size: 1.1rem; }
+}
+
+.blog-categories {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 30px;
+
+  .category-pill {
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: $navy-dark;
+    padding: 10px 24px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+      border-color: $cyan-light;
+      color: $cyan-light;
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background: $navy-dark;
+      color: white;
+      border-color: $navy-dark;
+      box-shadow: 0 4px 12px rgba(0, 51, 102, 0.2);
+    }
+  }
+}
+
+/* --- GRID Y FLIP CARD --- */
+.posts-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 30px;
+  perspective: 1500px; /* Importante para el efecto 3D */
+}
+
+.flip-card {
+  height: 480px;
+  width: 100%;
+
+  &.is-flipped .flip-card-inner {
+    transform: rotateY(180deg);
+  }
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+/* --- CARA FRONTAL --- */
+.flip-card-front, .flip-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.flip-card-front {
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: flex-end;
+  padding: 30px;
+  text-align: left;
+
+  .card-front-content {
+    color: white;
+    width: 100%;
+
+    h3 {
+      font-size: 1.6rem;
+      margin: 10px 0 20px;
+      line-height: 1.2;
+      font-weight: 700;
+    }
+  }
+}
+
+/* --- CARA TRASERA --- */
+.flip-card-back {
+  background: white;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: column;
+  padding: 40px 30px;
+  border: 2px solid $navy-dark;
+  text-align: left;
+
+  .card-back-header {
+    margin-bottom: 20px;
+    h4 { color: $navy-dark; font-size: 1.4rem; margin: 10px 0; }
+  }
+
+  .card-back-body {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+
+    /* Scrollbar elegante */
+    &::-webkit-scrollbar { width: 5px; }
+    &::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+
+    p { color: $text-gray; font-size: 1.05rem; line-height: 1.6; }
+  }
+}
+
+/* --- BOTONES Y TAGS --- */
+.post-category-tag {
+  background: $cyan-light;
+  color: white;
+  padding: 5px 12px;
+  border-radius: 6px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  text-transform: uppercase;
+
+  &.light { background: $navy-dark; }
+}
+
+.btn-flip-trigger {
+  background: white;
+  color: $navy-dark;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover { background: $cyan-light; color: white; }
+}
+
+.btn-flip-back {
+  margin-top: 20px;
+  background: $navy-dark;
+  color: white;
+  border: none;
+  padding: 10px 25px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.3s;
+
+  &:hover { background: $cyan-light; }
+}
+/* Mejora en la cara trasera para evitar problemas de espacio */
+.card-back-body {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 15px 0;
+  margin-bottom: 10px;
+
+  p {
+    color: $text-gray;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-align: justify; /* Alineación profesional para textos */
+  }
+}

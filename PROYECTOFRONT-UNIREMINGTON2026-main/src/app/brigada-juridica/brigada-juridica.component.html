@@ -1,0 +1,136 @@
+<section class="page-container">
+  <div class="header-section">
+    <h2><i class="fas fa-gavel"></i> Brigada Jurídica</h2>
+    <p class="subtitle">Asesoría legal, derechos humanos y consultorio jurídico gratuito</p>
+  </div>
+
+  <div class="card-form">
+    <form (ngSubmit)="guardar()" #juridicoForm="ngForm">
+      <div class="form-grid">
+
+        <!-- Beneficiario (Vinculado al objeto servicio.id) -->
+        <div class="form-group">
+          <label for="beneficiario">ID del Ciudadano / Beneficiario</label>
+          <input
+            type="number"
+            id="beneficiario"
+            name="servicioId"
+            [(ngModel)]="nuevaAsesoria.servicio.id"
+            placeholder="Cédula o ID"
+            required>
+        </div>
+
+        <!-- Tipo de Caso Jurídico (Se guarda en estado o podrías mapearlo a otro campo) -->
+        <div class="form-group">
+          <label for="tipoServicio">Área del Derecho</label>
+          <select id="tipoServicio" name="estado" [(ngModel)]="nuevaAsesoria.estado" required>
+            <option value="" disabled selected>Seleccione el área</option>
+            <option value="Derecho Civil">Derecho Civil</option>
+            <option value="Derecho de Familia">Derecho de Familia (Alimentos/Custodia)</option>
+            <option value="Derecho Laboral">Derecho Laboral</option>
+            <option value="Derecho Penal">Derecho Penal</option>
+            <option value="Derechos Humanos">Derechos Humanos / Tutelas</option>
+          </select>
+        </div>
+
+        <!-- Facultad Responsable (Solo visual o informativo para este modelo) -->
+        <div class="form-group">
+          <label for="facultad">Facultad Responsable</label>
+          <input
+            type="text"
+            id="facultad"
+            name="facultadInfo"
+            value="Facultad de Derecho"
+            readonly>
+        </div>
+
+        <!-- Tiempo de Atención -->
+        <div class="form-group">
+          <label for="fecha">Fecha de Seguimiento</label>
+          <input
+            type="date"
+            id="fecha"
+            name="fechaSeguimiento"
+            [(ngModel)]="nuevaAsesoria.fechaSeguimiento">
+        </div>
+      </div>
+
+      <!-- Descripción del Caso (Mapeado a OBSERVACIONES en Java) -->
+      <div class="form-group full-width">
+        <label for="descripcion">Resumen del Caso y Concepto Jurídico</label>
+        <textarea
+          id="descripcion"
+          name="observaciones"
+          [(ngModel)]="nuevaAsesoria.observaciones"
+          rows="4"
+          placeholder="Describa brevemente los hechos y la orientación legal brindada..."></textarea>
+      </div>
+
+      <!-- Acción Sugerida (Mapeado a ACCIONESTOMADAS en Java) -->
+      <div class="form-grid">
+        <div class="form-group">
+          <label for="resultado">Acción Sugerida / Resultado</label>
+          <input
+            type="text"
+            id="resultado"
+            name="accionesTomadas"
+            [(ngModel)]="nuevaAsesoria.accionesTomadas"
+            placeholder="Ej: Demanda redactada / Conciliación">
+        </div>
+        <div class="form-group">
+          <label for="evidencias">Estado Actual</label>
+          <input
+            type="text"
+            id="evidencias"
+            name="estadoDetalle"
+            [(ngModel)]="nuevaAsesoria.estado"
+            placeholder="Ej: En Proceso / Finalizado">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-save" [disabled]="!juridicoForm.valid">
+          <i class="fas fa-balance-scale"></i> Registrar Caso
+        </button>
+        <button type="button" class="btn-clear" (click)="limpiarFormulario()">Limpiar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Tabla de Registros Jurídicos -->
+  <div class="table-section">
+    <h3>Registro de Casos Atendidos</h3>
+    <div class="table-wrapper">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Servicio ID</th>
+            <th>Estado</th>
+            <th>Acciones Tomadas</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (listaAsesorias.length === 0) {
+            <tr>
+              <td colspan="5" class="empty-msg">No hay registros jurídicos en el historial</td>
+            </tr>
+          } @else {
+            @for (caso of listaAsesorias; track caso.id) {
+              <tr>
+                <td>{{ caso.id }}</td>
+                <td>{{ caso.servicio?.id }}</td>
+                <td><span class="badge-law">{{ caso.estado }}</span></td>
+                <td>{{ caso.accionesTomadas }}</td>
+                <td>
+                  <button class="btn-icon delete" (click)="eliminar(caso.id!)"><i class="fas fa-trash"></i></button>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
